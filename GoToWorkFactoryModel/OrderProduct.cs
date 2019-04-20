@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GoToWorkFactoryModel
 {
-    public class Class1
+    class OrderProduct
     {
     }
 }
