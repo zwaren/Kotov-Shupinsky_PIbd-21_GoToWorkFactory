@@ -1,15 +1,23 @@
-﻿namespace GoToWorkFactoryServiceDAL.BindingModels
+﻿using System.Runtime.Serialization;
+
+namespace GoToWorkFactoryServiceDAL.BindingModels
 {
-	public class ClientBindingModel
+    [DataContract]
+    public class ClientBindingModel
 	{
-		public int Id { get; set; }
+        [DataMember]
+        public int Id { get; set; }
 
-		public string Name { get; set; }
+        [DataMember]
+        public string Name { get; set; }
 
-		public string Email { get; set; }
+        [DataMember]
+        public string Email { get; set; }
 
-		public string Password { get; set; }
+        [DataMember]
+        public string Password { get; set; }
 
-		public bool IsAdmin { get; set; }
+        [DataMember]
+        public bool IsAdmin { get; set; }
 	}
 }

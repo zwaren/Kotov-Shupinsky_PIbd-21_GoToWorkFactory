@@ -1,15 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GoToWorkFactoryServiceDAL.ViewModels
 {
-	public class ProductViewModel
+    [DataContract]
+    public class ProductViewModel
 	{
-		public int Id { get; set; }
+        [DataMember]
+        public int Id { get; set; }
 
-		public string Name { get; set; }
+        [DataMember]
+        public string Name { get; set; }
 
-		public decimal Price { get; set; }
+        [DataMember]
+        public decimal Price { get; set; }
 
-		public List<ProductMaterialViewModel> ProductMaterials { get; set; }
+        [DataMember]
+        public List<ProductMaterialViewModel> ProductMaterials { get; set; }
 	}
 }

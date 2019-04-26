@@ -1,17 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GoToWorkFactoryServiceDAL.BindingModels
 {
-	public class OrderBindingModel
+    [DataContract]
+    public class OrderBindingModel
 	{
-		public int Id { get; set; }
+        [DataMember]
+        public int Id { get; set; }
 
-		public int ClientId { get; set; }
+        [DataMember]
+        public int ClientId { get; set; }
 
-		public decimal Sum { get; set; }
+        [DataMember]
+        public decimal Sum { get; set; }
 
-		public bool Reserved { get; set; }
-		
-		public List<OrderProductBindingModel> OrderProducts { get; set; }
+        [DataMember]
+        public bool Reserved { get; set; }
+
+        [DataMember]
+        public List<OrderProductBindingModel> OrderProducts { get; set; }
 	}
 }

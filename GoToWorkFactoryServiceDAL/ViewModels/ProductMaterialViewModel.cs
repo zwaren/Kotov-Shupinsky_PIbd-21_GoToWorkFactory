@@ -1,15 +1,23 @@
-﻿namespace GoToWorkFactoryServiceDAL.ViewModels
+﻿using System.Runtime.Serialization;
+
+namespace GoToWorkFactoryServiceDAL.ViewModels
 {
-	public class ProductMaterialViewModel
+    [DataContract]
+    public class ProductMaterialViewModel
 	{
-		public int Id { get; set; }
+        [DataMember]
+        public int Id { get; set; }
 
-		public int ProductId { get; set; }
+        [DataMember]
+        public int ProductId { get; set; }
 
-		public int MaterialId { get; set; }
+        [DataMember]
+        public int MaterialId { get; set; }
 
-		public int MaterialName { get; set; }
+        [DataMember]
+        public int MaterialName { get; set; }
 
-		public int Count { get; set; }
+        [DataMember]
+        public int Count { get; set; }
 	}
 }

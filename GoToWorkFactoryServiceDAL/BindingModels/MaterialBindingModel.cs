@@ -1,11 +1,17 @@
-﻿namespace GoToWorkFactoryServiceDAL.BindingModels
+﻿using System.Runtime.Serialization;
+
+namespace GoToWorkFactoryServiceDAL.BindingModels
 {
-	public class MaterialBindingModel
+    [DataContract]
+    public class MaterialBindingModel
 	{
-		public int Id { get; set; }
-		
-		public string Name { get; set; }
-		
-		public int Count { get; set; }
+        [DataMember]
+        public int Id { get; set; }
+
+        [DataMember]
+        public string Name { get; set; }
+
+        [DataMember]
+        public int Count { get; set; }
 	}
 }
