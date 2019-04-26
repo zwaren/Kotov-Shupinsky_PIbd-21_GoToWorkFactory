@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3B4A90B1-720F-4C37-90D8-C0278177E69E}</ProjectGuid>
+    <ProjectGuid>{046FCC26-0905-4564-B971-4D8A9287E5B8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoToWorkFactoryServiceDAL</RootNamespace>
-    <AssemblyName>GoToWorkFactoryServiceDAL</AssemblyName>
+    <RootNamespace>GoToWorkFactoryImplementDataBase</RootNamespace>
+    <AssemblyName>GoToWorkFactoryImplementDataBase</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,26 +47,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindingModels\ClientBindingModel.cs" />
-    <Compile Include="BindingModels\MaterialBindingModel.cs" />
-    <Compile Include="BindingModels\OrderBindingModel.cs" />
-    <Compile Include="BindingModels\OrderProductBindingModel.cs" />
-    <Compile Include="BindingModels\ProductBindingModel.cs" />
-    <Compile Include="BindingModels\ProductMaterialBindingModel.cs" />
-    <Compile Include="Interfaces\IAdminMainService.cs" />
-    <Compile Include="Interfaces\IClientMainService.cs" />
-    <Compile Include="Interfaces\IClientService.cs" />
-    <Compile Include="Interfaces\IMainService.cs" />
-    <Compile Include="Interfaces\IMaterialService.cs" />
-    <Compile Include="Interfaces\IProductService.cs" />
+    <Compile Include="FactoryDbContext.cs" />
+    <Compile Include="Implementations\ClientServiceDB.cs" />
+    <Compile Include="Implementations\MainServiceDB.cs" />
+    <Compile Include="Implementations\MaterialServiceDB.cs" />
+    <Compile Include="Implementations\OrderServiceDB.cs" />
+    <Compile Include="Implementations\ProductServiceDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ClientViewModel.cs" />
-    <Compile Include="ViewModels\MaterialViewModel.cs" />
-    <Compile Include="ViewModels\OrderProductViewModel.cs" />
-    <Compile Include="ViewModels\OrderViewModel.cs" />
-    <Compile Include="ViewModels\ProductMaterialViewModel.cs" />
-    <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GoToWorkFactoryModel\GoToWorkFactoryModel.csproj">
+      <Project>{4a2df83a-9f4a-4426-ad06-dec3b3d1dc00}</Project>
+      <Name>GoToWorkFactoryModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoToWorkFactoryServiceDAL\GoToWorkFactoryServiceDAL.csproj">
+      <Project>{3b4a90b1-720f-4c37-90d8-c0278177e69e}</Project>
+      <Name>GoToWorkFactoryServiceDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
