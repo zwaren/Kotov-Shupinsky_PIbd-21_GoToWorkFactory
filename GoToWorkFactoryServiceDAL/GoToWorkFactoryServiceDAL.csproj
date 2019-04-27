@@ -51,7 +51,6 @@
     <Compile Include="Interfaces\IAdminMainService.cs" />
     <Compile Include="Interfaces\IClientMainService.cs" />
     <Compile Include="Interfaces\IClientService.cs" />
-    <Compile Include="Interfaces\IMainService.cs" />
     <Compile Include="Interfaces\IMaterialService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

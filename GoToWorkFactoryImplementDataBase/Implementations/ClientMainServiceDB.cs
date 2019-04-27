@@ -9,11 +9,11 @@ using System.Linq;
 
 namespace GoToWorkFactoryImplementDataBase.Implementations
 {
-    public class MainServiceDB : IMainService
+    public class ClientMainServiceDB : IClientMainService
     {
         private FactoryDbContext context;
 
-        public MainServiceDB(FactoryDbContext context)
+        public ClientMainServiceDB(FactoryDbContext context)
         {
             this.context = context;
         }

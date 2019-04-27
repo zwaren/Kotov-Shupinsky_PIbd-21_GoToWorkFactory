@@ -49,9 +49,8 @@
   <ItemGroup>
     <Compile Include="FactoryDbContext.cs" />
     <Compile Include="Implementations\ClientServiceDB.cs" />
-    <Compile Include="Implementations\MainServiceDB.cs" />
+    <Compile Include="Implementations\ClientMainServiceDB.cs" />
     <Compile Include="Implementations\MaterialServiceDB.cs" />
-    <Compile Include="Implementations\OrderServiceDB.cs" />
     <Compile Include="Implementations\ProductServiceDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
