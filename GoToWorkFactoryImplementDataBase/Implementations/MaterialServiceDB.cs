@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace GoToWorkFactoryImplementDataBase.Implementations
 {
-    class MaterialServiceDB
+    public class MaterialServiceDB : IMaterialService
     {
 
         private FactoryDbContext context;

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoToWorkFactoryServiceDAL",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoToWorkFactoryImplementDataBase", "GoToWorkFactoryImplementDataBase\GoToWorkFactoryImplementDataBase.csproj", "{046FCC26-0905-4564-B971-4D8A9287E5B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoToWorkFactoryClientView", "GoToFactoryClientView\GoToWorkFactoryClientView.csproj", "{F9224526-EA11-4FC2-9EEC-D54D548BC1C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{046FCC26-0905-4564-B971-4D8A9287E5B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{046FCC26-0905-4564-B971-4D8A9287E5B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{046FCC26-0905-4564-B971-4D8A9287E5B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9224526-EA11-4FC2-9EEC-D54D548BC1C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9224526-EA11-4FC2-9EEC-D54D548BC1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9224526-EA11-4FC2-9EEC-D54D548BC1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9224526-EA11-4FC2-9EEC-D54D548BC1C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
