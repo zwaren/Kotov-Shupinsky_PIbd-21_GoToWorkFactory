@@ -19,5 +19,17 @@ namespace GoToWorkFactoryImplementDataBase
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductMaterial> ProductMaterials { get; set; }
         public virtual DbSet<OrderProduct> OrderProducts { get; set; }
+
+        public System.Data.Entity.DbSet<GoToWorkFactoryServiceDAL.ViewModels.ClientViewModel> ClientViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<GoToWorkFactoryServiceDAL.ViewModels.MaterialViewModel> MaterialViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<GoToWorkFactoryServiceDAL.ViewModels.ProductViewModel> ProductViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<GoToWorkFactoryServiceDAL.BindingModels.ClientBindingModel> ClientBindingModels { get; set; }
+
+        public System.Data.Entity.DbSet<GoToWorkFactoryServiceDAL.BindingModels.MaterialBindingModel> MaterialBindingModels { get; set; }
+
+        public System.Data.Entity.DbSet<GoToWorkFactoryServiceDAL.BindingModels.ProductBindingModel> ProductBindingModels { get; set; }
     }
 }
