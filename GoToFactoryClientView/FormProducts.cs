@@ -46,12 +46,25 @@ namespace GoToWorkFactoryClientView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-
+            var form = Container.Resolve<FormProduct>();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                LoadData();
+            }
         }
 
         private void buttonRedact_Click(object sender, EventArgs e)
         {
+            if (dataGridView.SelectedRows.Count == 1)
+            {
+                var form = Container.Resolve<FormProduct>();
+                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
+                }
 
+            }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
