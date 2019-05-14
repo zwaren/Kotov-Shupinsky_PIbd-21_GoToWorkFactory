@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using GoToWorkFactoryServiceDAL.BindingModels;
 using GoToWorkFactoryServiceDAL.Interfaces;
 using GoToWorkFactoryServiceDAL.ViewModels;
-using GoToWorkFactoryImplementDataBase.Implementations;
 using Unity;
 using System.Collections.Generic;
 
@@ -15,6 +13,8 @@ namespace GoToWorkFactoryClientView
         public new IUnityContainer Container { get; set; }
 
         private readonly IClientMainService service;
+
+        //private int ClientId;
 
         public FormMain(IClientMainService service)
         {
@@ -69,14 +69,29 @@ namespace GoToWorkFactoryClientView
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
-            //var form = Container.Resolve<FormCreateOrder>();
-            //form.ShowDialog();
+            var form = Container.Resolve<FormCreateOrder>();
+            //form.Id = ClientId;
+            form.ShowDialog();
             LoadData();
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void зарегестрироватьсяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClient>();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                LoadData();
+            }
+        }
+
+        private void войтиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //var form = Container.Resolve<FormAutorization>();
         }
     }
 }

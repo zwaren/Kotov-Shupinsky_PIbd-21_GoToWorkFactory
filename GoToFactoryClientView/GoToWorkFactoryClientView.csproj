@@ -63,6 +63,12 @@
     <Compile Include="FormClients.Designer.cs">
       <DependentUpon>FormClients.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCreateOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCreateOrder.Designer.cs">
+      <DependentUpon>FormCreateOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMaterial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,9 @@
     <EmbeddedResource Include="FormClients.resx">
       <DependentUpon>FormClients.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCreateOrder.resx">
+      <DependentUpon>FormCreateOrder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMaterials.resx">
       <DependentUpon>FormMaterials.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormProduct.resx">
+      <DependentUpon>FormProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormProducts.resx">
       <DependentUpon>FormProducts.cs</DependentUpon>
@@ -135,6 +147,7 @@
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.ClientViewModel.datasource" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.MaterialViewModel.datasource" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.OrderViewModel.datasource" />
+    <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.ProductMaterialViewModel.datasource" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.ProductViewModel.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
