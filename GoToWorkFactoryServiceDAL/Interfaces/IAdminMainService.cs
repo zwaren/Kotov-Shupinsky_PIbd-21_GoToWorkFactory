@@ -2,7 +2,6 @@
 {
 	public interface IAdminMainService
 	{
-		void MaterialDeficitReport();
-
+		
 	}
 }

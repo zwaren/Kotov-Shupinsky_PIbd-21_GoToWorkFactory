@@ -48,11 +48,13 @@
     <Compile Include="BindingModels\OrderProductBindingModel.cs" />
     <Compile Include="BindingModels\ProductBindingModel.cs" />
     <Compile Include="BindingModels\ProductMaterialBindingModel.cs" />
+    <Compile Include="BindingModels\ReportBindingModel.cs" />
     <Compile Include="Interfaces\IAdminMainService.cs" />
     <Compile Include="Interfaces\IClientMainService.cs" />
     <Compile Include="Interfaces\IClientService.cs" />
     <Compile Include="Interfaces\IMaterialService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
+    <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\MaterialViewModel.cs" />
