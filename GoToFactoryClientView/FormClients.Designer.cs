@@ -36,8 +36,6 @@
             this.isAdminDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.clientViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonRedact = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientViewModelBindingSource)).BeginInit();
@@ -93,35 +91,15 @@
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(172, 53);
             this.buttonAdd.TabIndex = 1;
-            this.buttonAdd.Text = "Add";
+            this.buttonAdd.Text = "Registration";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // buttonRedact
-            // 
-            this.buttonRedact.Location = new System.Drawing.Point(395, 87);
-            this.buttonRedact.Name = "buttonRedact";
-            this.buttonRedact.Size = new System.Drawing.Size(168, 54);
-            this.buttonRedact.TabIndex = 2;
-            this.buttonRedact.Text = "Redact";
-            this.buttonRedact.UseVisualStyleBackColor = true;
-            this.buttonRedact.Click += new System.EventHandler(this.buttonRedact_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Location = new System.Drawing.Point(397, 163);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(166, 57);
-            this.buttonDelete.TabIndex = 3;
-            this.buttonDelete.Text = "Delete";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(398, 237);
+            this.buttonUpdate.Location = new System.Drawing.Point(392, 76);
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(164, 55);
+            this.buttonUpdate.Size = new System.Drawing.Size(172, 55);
             this.buttonUpdate.TabIndex = 4;
             this.buttonUpdate.Text = "Update";
             this.buttonUpdate.UseVisualStyleBackColor = true;
@@ -133,8 +111,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(574, 426);
             this.Controls.Add(this.buttonUpdate);
-            this.Controls.Add(this.buttonDelete);
-            this.Controls.Add(this.buttonRedact);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView);
             this.Name = "FormClients";
@@ -155,8 +131,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn isAdminDataGridViewCheckBoxColumn;
         private System.Windows.Forms.BindingSource clientViewModelBindingSource;
         private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button buttonRedact;
-        private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonUpdate;
     }
 }
