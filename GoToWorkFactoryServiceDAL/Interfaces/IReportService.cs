@@ -9,8 +9,10 @@ namespace GoToWorkFactoryServiceDAL.Interfaces
 {
     public interface IReportService
     {
-        void getMaterialDeficitReport(ReportBindingModel model);
+        void createMaterialRequest(ReportBindingModel model);
 
-        void getOrderListReport(ReportBindingModel model);
+        void getAdminOrderList(ReportBindingModel model);
+
+        void getClentOrderList(ReportBindingModel model);
     }
 }
