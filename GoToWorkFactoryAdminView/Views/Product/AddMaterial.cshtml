@@ -1,25 +1,24 @@
-﻿@model GoToWorkFactoryServiceDAL.BindingModels.MaterialBindingModel
+﻿@model GoToWorkFactoryServiceDAL.BindingModels.ProductMaterialBindingModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "AddMaterial";
 }
 
-<h2>Create</h2>
+<h2>AddMaterial</h2>
 
 
-@using (Html.BeginForm("CreatePost", "Material", FormMethod.Post)) 
+@using (Html.BeginForm("AddMaterialPost", "Candy", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>MaterialBindingModel</h4>
+        <h4>ProductMaterialBindingModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.MaterialName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+               @Html.DropDownList("MaterialId", ViewBag.Materials as SelectList)
             </div>
         </div>
 
@@ -40,7 +39,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Create")
 </div>
 
 @section Scripts {

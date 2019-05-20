@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("CreatePost", "Candy", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
@@ -29,6 +29,38 @@
                 @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
             </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductMaterials, htmlAttributes: new { @class = "control-label col-md-2" })
+            <p>
+                @Html.ActionLink("Add", "AddMaterial")
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductMaterials[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductMaterials[0].Count)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.ProductMaterials)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Count)
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+
+            </table>
         </div>
 
         <div class="form-group">
