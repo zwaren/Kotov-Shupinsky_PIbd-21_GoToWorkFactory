@@ -49,9 +49,7 @@ namespace GoToWorkFactoryClientView
                     {
                         Id = id.Value,
                         Name = textBoxName.Text,
-                        Email = textBoxEmail.Text,
-                        Password = textBoxPass.Text,
-                        IsAdmin = false
+                        Email = textBoxEmail.Text
                     });
                 }
                 else
@@ -59,9 +57,7 @@ namespace GoToWorkFactoryClientView
                     service.AddElement(new ClientBindingModel
                     {
                         Name = textBoxName.Text,
-                        Email = textBoxEmail.Text,
-                        Password = textBoxPass.Text,
-                        IsAdmin = false
+                        Email = textBoxEmail.Text
                     });
                 }
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);

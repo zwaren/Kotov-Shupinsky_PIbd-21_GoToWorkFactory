@@ -13,8 +13,5 @@ namespace GoToWorkFactoryServiceDAL.ViewModels
 
         [DataMember]
         public string Email { get; set; }
-
-        [DataMember]
-        public bool IsAdmin { get; set; }
 	}
 }

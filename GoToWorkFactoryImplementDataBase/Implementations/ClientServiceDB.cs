@@ -21,8 +21,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             {
                 Id = rec.Id,
                 Name = rec.Name,
-                Email = rec.Email,
-                IsAdmin = rec.IsAdmin
+                Email = rec.Email
             })
             .ToList();
             return result;
@@ -36,8 +35,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 {
                     Id = element.Id,
                     Name = element.Name,
-                    Email = element.Email,
-                    IsAdmin = element.IsAdmin
+                    Email = element.Email
                 };
             }
             throw new Exception("Элемент не найден");
@@ -53,8 +51,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             context.Clients.Add(new Client
             {
                 Name = model.Name,
-                Email = model.Email,
-                IsAdmin = model.IsAdmin
+                Email = model.Email
             });
             context.SaveChanges();
         }

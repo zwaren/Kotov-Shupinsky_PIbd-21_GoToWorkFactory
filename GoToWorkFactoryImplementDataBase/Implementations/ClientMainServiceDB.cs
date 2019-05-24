@@ -3,6 +3,7 @@ using GoToWorkFactoryServiceDAL.BindingModels;
 using GoToWorkFactoryServiceDAL.Interfaces;
 using GoToWorkFactoryServiceDAL.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity.SqlServer;
 using System.Linq;
@@ -24,9 +25,20 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             {
                 ClientId = model.ClientId,
                 DateCreate = DateTime.Now,
+                Reserved = model.Reserved,
                 Sum = model.Sum,
                 Status = OrderStatus.Принят
             });
+            context.SaveChanges();
+
+            foreach (var op in model.OrderProducts) {
+                context.OrderProducts.Add(new OrderProduct
+                {
+                    OrderId = context.Orders.Last().Id,
+                    ProductId = op.ProductId,
+                    Count = op.Count
+                });
+            }
             context.SaveChanges();
         }
 

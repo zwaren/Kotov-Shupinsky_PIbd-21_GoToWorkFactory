@@ -30,9 +30,7 @@ namespace GoToWorkFactoryAdminView.Controllers
             _service.AddElement(new ClientBindingModel
             {
                 Name = Request["Name"],
-                Email = Request["Email"],
-                Password = Request["Password"]
-                //IsAdmin = Request["IsAdmin"]
+                Email = Request["Email"]
             });
             return RedirectToAction("Index");
         }
@@ -44,10 +42,7 @@ namespace GoToWorkFactoryAdminView.Controllers
             {
                 Id = id,
                 Name = viewModel.Name,
-                Email = viewModel.Email,
-                //Password = viewModel.Password,
-                //А надо ли сюда пасс?
-                IsAdmin = viewModel.IsAdmin
+                Email = viewModel.Email
             };
             return View(bindingModel);
         }
@@ -59,9 +54,7 @@ namespace GoToWorkFactoryAdminView.Controllers
             {
                 Id = int.Parse(Request["Id"]),
                 Name = Request["Name"],
-                Email = Request["Email"],
-                Password = Request["Password"]
-                //IsAdmin = Request["IsAdmin"]
+                Email = Request["Email"]
             });
             return RedirectToAction("Index");
         }
