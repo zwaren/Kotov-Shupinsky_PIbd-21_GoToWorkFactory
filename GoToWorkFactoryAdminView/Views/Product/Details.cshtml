@@ -1,0 +1,58 @@
+﻿@model GoToWorkFactoryServiceDAL.ViewModels.ProductViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductMaterials[0].MaterialName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductMaterials[0].Count)
+            </th>
+        </tr>
+
+        @foreach (var item in Model.ProductMaterials)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaterialName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td></td>
+            </tr>
+        }
+
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

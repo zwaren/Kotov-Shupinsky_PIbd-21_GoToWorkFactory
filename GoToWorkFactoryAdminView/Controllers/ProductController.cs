@@ -20,7 +20,12 @@ namespace GoToWorkFactoryAdminView.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View();
+            return View(_service.GetList());
+        }
+
+        public ActionResult Details(int id)
+        {
+            return View(_service.GetElement(id));
         }
 
         public ActionResult Create()
@@ -31,13 +36,13 @@ namespace GoToWorkFactoryAdminView.Controllers
                 product.ProductMaterials = new List<ProductMaterialBindingModel>();
                 Session["Product"] = product;
             }
-            return View((ProductBindingModel)Session["Product"]);
+            return View((ProductBindingModel) Session["Product"]);
         }
 
         [HttpPost]
         public ActionResult CreatePost()
         {
-            var product = (ProductBindingModel)Session["Product"];
+            var product = (ProductBindingModel) Session["Product"];
 
             product.Name = Request["ProductName"];
             product.Price = Convert.ToDecimal(Request["Price"]);

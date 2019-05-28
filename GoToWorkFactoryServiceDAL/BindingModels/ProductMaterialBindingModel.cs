@@ -15,7 +15,7 @@ namespace GoToWorkFactoryServiceDAL.BindingModels
         public int MaterialId { get; set; }
 
         [DataMember]
-        public int MaterialName { get; set; }
+        public string MaterialName { get; set; }
 
         [DataMember]
         public int Count { get; set; }

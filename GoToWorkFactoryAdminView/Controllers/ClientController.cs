@@ -16,7 +16,7 @@ namespace GoToWorkFactoryAdminView.Controllers
         // GET: Client
         public ActionResult Index()
         {
-            return View();
+            return View(_service.GetList());
         }
 
         public ActionResult Create()

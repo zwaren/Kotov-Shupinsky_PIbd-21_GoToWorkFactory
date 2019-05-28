@@ -31,5 +31,7 @@ namespace GoToWorkFactoryImplementDataBase
         public System.Data.Entity.DbSet<GoToWorkFactoryServiceDAL.BindingModels.MaterialBindingModel> MaterialBindingModels { get; set; }
 
         public System.Data.Entity.DbSet<GoToWorkFactoryServiceDAL.BindingModels.ProductBindingModel> ProductBindingModels { get; set; }
+
+        public System.Data.Entity.DbSet<GoToWorkFactoryServiceDAL.ViewModels.OrderViewModel> OrderViewModels { get; set; }
     }
 }

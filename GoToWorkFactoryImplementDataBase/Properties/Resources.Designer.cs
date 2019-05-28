@@ -59,5 +59,15 @@ namespace GoToWorkFactoryImplementDataBase.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] TIMCYR {
+            get {
+                object obj = ResourceManager.GetObject("TIMCYR", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

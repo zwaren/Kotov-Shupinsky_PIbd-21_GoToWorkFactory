@@ -20,7 +20,7 @@ namespace GoToWorkFactoryAdminView.Controllers
         // GET: Material
         public ActionResult Index()
         {
-            return View();
+            return View(_service.GetList());
         }
 
         public ActionResult Create()
@@ -34,7 +34,7 @@ namespace GoToWorkFactoryAdminView.Controllers
             _service.AddElement(new MaterialBindingModel
             {
                 Name = Request["Name"],
-                //Count= Request["Count"]
+                Count = int.Parse(Request["Count"])
             });
             return RedirectToAction("Index");
         }
@@ -58,7 +58,7 @@ namespace GoToWorkFactoryAdminView.Controllers
             {
                 Id = int.Parse(Request["Id"]),
                 Name = Request["Name"],
-                //Count= Request["Count"]
+                Count = int.Parse(Request["Count"])
             });
             return RedirectToAction("Index");
         }
