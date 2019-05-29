@@ -70,9 +70,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                         foreach (var pm in op.Product.ProductMaterials)
                         {
                             if (!materials.ContainsKey(pm.Material))
-                            {
                                 materials.Add(pm.Material, 0);
-                            }
                             materials[pm.Material] += pm.Count;
                         }
                 foreach (var m in materials.Keys)

@@ -9,9 +9,9 @@ namespace GoToWorkFactoryAdminView.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly IClientMainService _service;
+        private readonly IOrderService _service;
 
-        public OrderController(IClientMainService service)
+        public OrderController(IOrderService service)
         {
             _service = service;
         }

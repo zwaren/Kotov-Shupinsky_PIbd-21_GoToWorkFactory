@@ -11,33 +11,64 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
     public class ProductServiceDB : IProductService
     {
         private FactoryDbContext context;
+
         public ProductServiceDB(FactoryDbContext context)
         {
             this.context = context;
         }
         public List<ProductViewModel> GetList()
         {
-            List<ProductViewModel> result = context.Products.Select(rec => new
-            ProductViewModel
+            List<ProductViewModel> result = context.Products.Select(rec => new ProductViewModel
             {
                 Id = rec.Id,
                 Name = rec.Name,
                 Price = rec.Price,
                 ProductMaterials = context.ProductMaterials
-            .Where(recPC => recPC.ProductId == rec.Id)
-            .Select(recPC => new ProductMaterialViewModel
-            {
-                Id = recPC.Id,
-                ProductId = recPC.ProductId,
-                MaterialId = recPC.MaterialId,
-                MaterialName = recPC.Material.Name,
-                Count = recPC.Count
-            })
-            .ToList()
+                    .Where(recPC => recPC.ProductId == rec.Id)
+                    .Select(recPC => new ProductMaterialViewModel
+                    {
+                        Id = recPC.Id,
+                        ProductId = recPC.ProductId,
+                        MaterialId = recPC.MaterialId,
+                        MaterialName = recPC.Material.Name,
+                        Count = recPC.Count
+                    })
+                    .ToList()
             })
             .ToList();
             return result;
         }
+
+        public List<ProductViewModel> GetFilteredList()
+        {
+            List<ProductViewModel> result = context.Products.Where(e => productAllowed(e)).Select(rec => new ProductViewModel
+            {
+                Id = rec.Id,
+                Name = rec.Name,
+                Price = rec.Price,
+                ProductMaterials = context.ProductMaterials
+                    .Where(recPC => recPC.ProductId == rec.Id)
+                    .Select(recPC => new ProductMaterialViewModel
+                    {
+                        Id = recPC.Id,
+                        ProductId = recPC.ProductId,
+                        MaterialId = recPC.MaterialId,
+                        MaterialName = recPC.Material.Name,
+                        Count = recPC.Count
+                    })
+                    .ToList()
+            })
+            .ToList();
+            return result;
+        }
+
+        private bool productAllowed(Product p)
+        {
+            foreach (var pm in p.ProductMaterials)
+                if (pm.Material.Count < pm.Count) return false;
+            return true;
+        }
+
         public ProductViewModel GetElement(int id)
         {
             Product element = context.Products.FirstOrDefault(rec => rec.Id == id);
@@ -49,16 +80,16 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                     Name = element.Name,
                     Price = element.Price,
                     ProductMaterials = context.ProductMaterials
-                    .Where(recPC => recPC.ProductId == element.Id)
-                    .Select(recPC => new ProductMaterialViewModel
-                    {
-                    Id = recPC.Id,
-                    ProductId = recPC.ProductId,
-                    MaterialId = recPC.MaterialId,
-                    MaterialName = recPC.Material.Name,
-                    Count = recPC.Count
-                })
-                .ToList()
+                        .Where(recPC => recPC.ProductId == element.Id)
+                        .Select(recPC => new ProductMaterialViewModel
+                        {
+                            Id = recPC.Id,
+                            ProductId = recPC.ProductId,
+                            MaterialId = recPC.MaterialId,
+                            MaterialName = recPC.Material.Name,
+                            Count = recPC.Count
+                        })
+                        .ToList()
                 };
             }
             throw new Exception("Элемент не найден");
@@ -70,7 +101,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 try
                 {
                     Product element = context.Products.FirstOrDefault(rec =>
-                    rec.Name == model.Name);
+                        rec.Name == model.Name);
                     if (element != null)
                     {
                         throw new Exception("Уже есть изделие с таким названием");
@@ -84,12 +115,12 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                     context.SaveChanges();
                     // убираем дубли по компонентам
                     var groupMaterials = model.ProductMaterials
-                    .GroupBy(rec => rec.MaterialId)
-                    .Select(rec => new
-                    {
-                        MaterialId = rec.Key,
-                        Count = rec.Sum(r => r.Count)
-                    });
+                        .GroupBy(rec => rec.MaterialId)
+                        .Select(rec => new
+                        {
+                            MaterialId = rec.Key,
+                            Count = rec.Sum(r => r.Count)
+                        });
                     // добавляем компоненты
                     foreach (var groupMaterial in groupMaterials)
                     {
@@ -117,7 +148,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 try
                 {
                     Product element = context.Products.FirstOrDefault(rec =>
-                    rec.Name == model.Name && rec.Id != model.Id);
+                        rec.Name == model.Name && rec.Id != model.Id);
                     if (element != null)
                     {
                         throw new Exception("Уже есть изделие с таким названием");
@@ -132,9 +163,9 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                     context.SaveChanges();
                     // обновляем существуюущие компоненты
                     var compIds = model.ProductMaterials.Select(rec =>
-                    rec.MaterialId).Distinct();
+                        rec.MaterialId).Distinct();
                     var updateMaterials = context.ProductMaterials.Where(rec =>
-                    rec.ProductId == model.Id && compIds.Contains(rec.MaterialId));
+                        rec.ProductId == model.Id && compIds.Contains(rec.MaterialId));
                     foreach (var updateMaterial in updateMaterials)
                     {
                         updateMaterial.Count =
@@ -142,22 +173,22 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                     }
                     context.SaveChanges();
                     context.ProductMaterials.RemoveRange(context.ProductMaterials.Where(rec =>
-                    rec.ProductId == model.Id && !compIds.Contains(rec.MaterialId)));
+                        rec.ProductId == model.Id && !compIds.Contains(rec.MaterialId)));
                     context.SaveChanges();
                     // новые записи
                     var groupMaterials = model.ProductMaterials
-                    .Where(rec => rec.Id == 0)
-                    .GroupBy(rec => rec.MaterialId)
-                    .Select(rec => new
-                    {
-                        MaterialId = rec.Key,
-                        Count = rec.Sum(r => r.Count)
-                    });
+                        .Where(rec => rec.Id == 0)
+                        .GroupBy(rec => rec.MaterialId)
+                        .Select(rec => new
+                        {
+                            MaterialId = rec.Key,
+                            Count = rec.Sum(r => r.Count)
+                        });
                     foreach (var groupMaterial in groupMaterials)
                     {
-                        ProductMaterial elementPC =
-                        context.ProductMaterials.FirstOrDefault(rec => rec.ProductId == model.Id &&
-                        rec.MaterialId == groupMaterial.MaterialId);
+                        ProductMaterial elementPC = context.ProductMaterials
+                            .FirstOrDefault(rec => rec.ProductId == model.Id 
+                                            && rec.MaterialId == groupMaterial.MaterialId);
                         if (elementPC != null)
                         {
                             elementPC.Count += groupMaterial.Count;
@@ -189,13 +220,12 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             {
                 try
                 {
-                    Product element = context.Products.FirstOrDefault(rec => rec.Id ==
-                    id);
+                    Product element = context.Products.FirstOrDefault(rec => rec.Id == id);
                     if (element != null)
                     {
                         // удаяем записи по компонентам при удалении изделия
                         context.ProductMaterials.RemoveRange(context.ProductMaterials.Where(rec =>
-                        rec.ProductId == id));
+                            rec.ProductId == id));
                         context.Products.Remove(element);
                         context.SaveChanges();
                     }

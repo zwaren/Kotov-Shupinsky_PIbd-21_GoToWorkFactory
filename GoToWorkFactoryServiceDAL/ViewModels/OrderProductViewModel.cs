@@ -9,9 +9,6 @@ namespace GoToWorkFactoryServiceDAL.ViewModels
         public int Id { get; set; }
 
         [DataMember]
-        public string OrderName { get; set; }
-
-        [DataMember]
         public string ProductName { get; set; }
 
         [DataMember]

@@ -29,13 +29,14 @@ namespace GoToWorkFactoryClientView
             this.cService = cService;
             this.pService = pService;
             order = new OrderBindingModel();
+            order.OrderProducts = new List<OrderProductBindingModel>();
         }
 
         private void LoadData()
         {
             try
             {
-                List<ProductViewModel> list = pService.GetList();
+                List<ProductViewModel> list = pService.GetFilteredList();
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -90,12 +91,24 @@ namespace GoToWorkFactoryClientView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-
+            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            {
+                var pId = Convert.ToInt32(row.Cells[0].Value);
+                if (order.OrderProducts.Find(op => op.ProductId == pId) == null)
+                    new OrderProductBindingModel { ProductId = pId, Count = 0 };
+                order.OrderProducts.Find(op => op.ProductId == pId).Count += 1;
+            }
         }
 
         private void buttonCommit_Click(object sender, EventArgs e)
         {
+            order.Sum = 0;
+            foreach (var op in order.OrderProducts)
+                order.Sum += pService.GetElement(op.ProductId).Price;
 
+            service.CreateOrder(order);
+            order = null;
+            LoadData();
         }
     }
 }

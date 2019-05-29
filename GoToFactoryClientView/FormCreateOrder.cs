@@ -106,8 +106,7 @@ namespace GoToWorkFactoryClientView
                 serviceM.CreateOrder(new OrderBindingModel
                 {
                     ClientId = id,
-                    ProductId = Convert.ToInt32(comboBoxProduct.SelectedValue),
-                    Count = Convert.ToInt32(textBoxCount.Text),
+                   // Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToInt32(textBoxSum.Text)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",

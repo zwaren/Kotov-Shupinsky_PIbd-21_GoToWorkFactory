@@ -70,9 +70,6 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.OrderProducts[0].OrderName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.OrderProducts[0].ProductName)
             </th>
             <th>
@@ -83,9 +80,6 @@
         @foreach (var item in Model.OrderProducts)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderName)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
