@@ -82,15 +82,23 @@ namespace GoToWorkFactoryClientView
             foreach (DataGridViewRow row in dataGridView.SelectedRows)
             {
                 var pId = Convert.ToInt32(row.Cells[0].Value);
-                if (order.OrderProducts.Find(op => op.ProductId == pId) == null)
-                    new OrderProductBindingModel { ProductId = pId, Count = 0 };
+                if (!order.OrderProducts.Exists(op => op.ProductId == pId))
+                    order.OrderProducts.Add(new OrderProductBindingModel { ProductId = pId, Count = 0 });
                 order.OrderProducts.Find(op => op.ProductId == pId).Count += 1;
             }
         }
 
         private void buttonCommit_Click(object sender, EventArgs e)
         {
-            order.ClientId = clientId.Value;
+            try
+            {
+                order.ClientId = clientId.Value;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Вы должны быть залогинены!\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+                
             order.Sum = 0;
             foreach (var op in order.OrderProducts)
                 order.Sum += pService.GetElement(op.ProductId).Price;

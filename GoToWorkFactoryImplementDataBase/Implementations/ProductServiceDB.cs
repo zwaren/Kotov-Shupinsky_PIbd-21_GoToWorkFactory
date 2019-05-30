@@ -41,8 +41,8 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
 
         public List<ProductViewModel> GetFilteredList()
         {
-            var result = context.Products.Where(productAllowed);
-            List<ProductViewModel> result1 = result
+            var result = context.Products
+                .Where(productAllowed)
                 .Select(rec => new ProductViewModel
                 {
                     Id = rec.Id,
@@ -50,7 +50,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                     Price = rec.Price
                 })
                 .ToList();
-            foreach (var x in result1)
+            foreach (var x in result)
                 x.ProductMaterials = context.ProductMaterials
                         .Where(recPC => recPC.ProductId == x.Id)
                         .Select(recPC => new ProductMaterialViewModel
@@ -62,13 +62,13 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                             Count = recPC.Count
                         })
                         .ToList();
-            return result1;
+            return result;
         }
 
         private bool productAllowed(Product p)
         {
-            foreach (var pm in p.ProductMaterials)
-                if (pm.Material.Count < pm.Count) return false;
+            foreach (var pm in context.ProductMaterials.Where(x => x.ProductId == p.Id))
+                if (context.Materials.First(m => m.Id == pm.MaterialId).Count < pm.Count) return false;
             return true;
         }
 
