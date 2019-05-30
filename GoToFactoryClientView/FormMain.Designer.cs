@@ -40,6 +40,7 @@
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.productViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.labelUser = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.orderViewModelBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -58,29 +59,31 @@
             this.зарегестрироватьсяToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1063, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(797, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // войтиToolStripMenuItem
             // 
             this.войтиToolStripMenuItem.Name = "войтиToolStripMenuItem";
-            this.войтиToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
+            this.войтиToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.войтиToolStripMenuItem.Text = "Войти";
             this.войтиToolStripMenuItem.Click += new System.EventHandler(this.войтиToolStripMenuItem_Click);
             // 
             // зарегестрироватьсяToolStripMenuItem
             // 
             this.зарегестрироватьсяToolStripMenuItem.Name = "зарегестрироватьсяToolStripMenuItem";
-            this.зарегестрироватьсяToolStripMenuItem.Size = new System.Drawing.Size(162, 24);
+            this.зарегестрироватьсяToolStripMenuItem.Size = new System.Drawing.Size(130, 20);
             this.зарегестрироватьсяToolStripMenuItem.Text = "Зарегестрироваться";
             this.зарегестрироватьсяToolStripMenuItem.Click += new System.EventHandler(this.зарегестрироватьсяToolStripMenuItem_Click);
             // 
             // buttonCommit
             // 
-            this.buttonCommit.Location = new System.Drawing.Point(857, 43);
+            this.buttonCommit.Location = new System.Drawing.Point(643, 35);
+            this.buttonCommit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonCommit.Name = "buttonCommit";
-            this.buttonCommit.Size = new System.Drawing.Size(194, 63);
+            this.buttonCommit.Size = new System.Drawing.Size(146, 51);
             this.buttonCommit.TabIndex = 2;
             this.buttonCommit.Text = "Оформить заказ";
             this.buttonCommit.UseVisualStyleBackColor = true;
@@ -88,9 +91,10 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(857, 112);
+            this.buttonAdd.Location = new System.Drawing.Point(643, 91);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(194, 53);
+            this.buttonAdd.Size = new System.Drawing.Size(146, 43);
             this.buttonAdd.TabIndex = 3;
             this.buttonAdd.Text = "Добавить в корзину";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -105,10 +109,11 @@
             this.nameDataGridViewTextBoxColumn,
             this.priceDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.productViewModelBindingSource;
-            this.dataGridView.Location = new System.Drawing.Point(14, 34);
+            this.dataGridView.Location = new System.Drawing.Point(10, 28);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 24;
-            this.dataGridView.Size = new System.Drawing.Size(821, 340);
+            this.dataGridView.Size = new System.Drawing.Size(616, 276);
             this.dataGridView.TabIndex = 4;
             // 
             // idDataGridViewTextBoxColumn
@@ -133,16 +138,27 @@
             // 
             this.productViewModelBindingSource.DataSource = typeof(GoToWorkFactoryServiceDAL.ViewModels.ProductViewModel);
             // 
+            // labelUser
+            // 
+            this.labelUser.AutoSize = true;
+            this.labelUser.Location = new System.Drawing.Point(715, 9);
+            this.labelUser.Name = "labelUser";
+            this.labelUser.Size = new System.Drawing.Size(70, 13);
+            this.labelUser.TabIndex = 5;
+            this.labelUser.Text = "Залогинься!";
+            // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1063, 393);
+            this.ClientSize = new System.Drawing.Size(797, 319);
+            this.Controls.Add(this.labelUser);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonCommit);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormMain";
             this.Text = "FormMain";
             this.Load += new System.EventHandler(this.FormMain_Load);
@@ -168,5 +184,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource productViewModelBindingSource;
+        private System.Windows.Forms.Label labelUser;
     }
 }

@@ -56,19 +56,6 @@ namespace GoToWorkFactoryClientView
             LoadData();
         }
 
-        private void buttonCreate_Click(object sender, EventArgs e)
-        {
-            var form = Container.Resolve<FormCreateOrder>();
-            //form.Id = ClientId;
-            form.ShowDialog();
-            LoadData();
-        }
-
-        private void buttonUpdate_Click(object sender, EventArgs e)
-        {
-            LoadData();
-        }
-
         private void зарегестрироватьсяToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormClient>();
@@ -84,8 +71,9 @@ namespace GoToWorkFactoryClientView
             if (form.ShowDialog() == DialogResult.OK)
             {
                 var id = form.getId();
-                var x = cService.GetElement(id.Value);
-                if (x != null) clientId = id;
+                var user = cService.GetElement(id.Value);
+                if (user != null) clientId = id;
+                labelUser.Text = user.Name;
             }
         }
 
@@ -102,12 +90,14 @@ namespace GoToWorkFactoryClientView
 
         private void buttonCommit_Click(object sender, EventArgs e)
         {
+            order.ClientId = clientId.Value;
             order.Sum = 0;
             foreach (var op in order.OrderProducts)
                 order.Sum += pService.GetElement(op.ProductId).Price;
 
             service.CreateOrder(order);
-            order = null;
+            order = new OrderBindingModel();
+            order.OrderProducts = new List<OrderProductBindingModel>();
             LoadData();
         }
     }

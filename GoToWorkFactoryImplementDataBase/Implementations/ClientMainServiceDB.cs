@@ -21,7 +21,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
 
         public void CreateOrder(OrderBindingModel model)
         {
-            context.Orders.Add(new Order
+            var o = context.Orders.Add(new Order
             {
                 ClientId = model.ClientId,
                 DateCreate = DateTime.Now,
@@ -31,7 +31,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             });
             context.SaveChanges();
 
-            int curOrderId = context.Orders.Last().Id;
+            int curOrderId = o.Id;
 
             foreach (var op in model.OrderProducts) {
                 context.OrderProducts.Add(new OrderProduct

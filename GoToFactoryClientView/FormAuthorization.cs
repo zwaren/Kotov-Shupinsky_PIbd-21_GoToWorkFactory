@@ -1,4 +1,5 @@
-﻿using GoToWorkFactoryServiceDAL.Interfaces;
+﻿using GoToWorkFactoryServiceDAL.BindingModels;
+using GoToWorkFactoryServiceDAL.Interfaces;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,7 +19,10 @@ namespace GoToWorkFactoryClientView
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            id = service.GetList().First(x => x.Email == textBoxEmail.Text).Id;
+            id = service.GetElement(new ClientBindingModel { Email = textBoxEmail.Text }).Id;
+            MessageBox.Show("Вход прощол успешно", "Собщенье", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         public int? getId()

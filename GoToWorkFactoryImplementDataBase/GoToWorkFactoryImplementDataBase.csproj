@@ -62,9 +62,9 @@
     <Compile Include="Implementations\OrderServiceDB.cs" />
     <Compile Include="Implementations\ProductServiceDB.cs" />
     <Compile Include="Implementations\ReportServiceDB.cs" />
-    <Compile Include="Migrations\201905290731098_First.cs" />
-    <Compile Include="Migrations\201905290731098_First.Designer.cs">
-      <DependentUpon>201905290731098_First.cs</DependentUpon>
+    <Compile Include="Migrations\201905301449252_first.cs" />
+    <Compile Include="Migrations\201905301449252_first.Designer.cs">
+      <DependentUpon>201905301449252_first.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,8 +92,8 @@
     <None Include="Resources\TIMCYR.TTF" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905290731098_First.resx">
-      <DependentUpon>201905290731098_First.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905301449252_first.resx">
+      <DependentUpon>201905301449252_first.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

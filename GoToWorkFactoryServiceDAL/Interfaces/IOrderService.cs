@@ -9,5 +9,6 @@ namespace GoToWorkFactoryServiceDAL.Interfaces
         List<OrderViewModel> GetList();
         OrderViewModel GetElement(int id);
         void FinishOrder(OrderBindingModel model);
+        void DelElement(int id);
     }
 }

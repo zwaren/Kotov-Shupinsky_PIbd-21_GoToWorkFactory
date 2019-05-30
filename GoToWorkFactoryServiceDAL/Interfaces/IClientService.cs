@@ -8,7 +8,8 @@ namespace GoToWorkFactoryServiceDAL.Interfaces
 	{
 		List<ClientViewModel> GetList();
 		ClientViewModel GetElement(int id);
-		void AddElement(ClientBindingModel model);
+        ClientViewModel GetElement(ClientBindingModel model);
+        void AddElement(ClientBindingModel model);
 		void UpdElement(ClientBindingModel model);
 		void DelElement(int id);
 	}

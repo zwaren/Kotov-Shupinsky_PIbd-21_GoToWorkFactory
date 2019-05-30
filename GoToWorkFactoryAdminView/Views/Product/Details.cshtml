@@ -11,6 +11,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
@@ -30,6 +38,12 @@
     <table class="table">
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ProductMaterials[0].MaterialId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductMaterials[0].ProductId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ProductMaterials[0].MaterialName)
             </th>
             <th>
@@ -39,15 +53,21 @@
 
         @foreach (var item in Model.ProductMaterials)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaterialName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Count)
-                </td>
-                <td></td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaterialId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaterialName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td></td>
+        </tr>
         }
 
     </table>

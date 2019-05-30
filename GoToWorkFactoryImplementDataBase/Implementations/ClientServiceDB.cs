@@ -10,22 +10,24 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
     public class ClientServiceDB : IClientService
     {
         private FactoryDbContext context;
+
         public ClientServiceDB(FactoryDbContext context)
         {
             this.context = context;
         }
+
         public List<ClientViewModel> GetList()
         {
-            List<ClientViewModel> result = context.Clients.Select(rec => new
-            ClientViewModel
-            {
-                Id = rec.Id,
-                Name = rec.Name,
-                Email = rec.Email
-            })
-            .ToList();
+            List<ClientViewModel> result = context.Clients.Select(rec => new ClientViewModel
+                {
+                    Id = rec.Id,
+                    Name = rec.Name,
+                    Email = rec.Email
+                })
+                .ToList();
             return result;
         }
+
         public ClientViewModel GetElement(int id)
         {
             Client element = context.Clients.FirstOrDefault(rec => rec.Id == id);
@@ -40,13 +42,28 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             }
             throw new Exception("Элемент не найден");
         }
-        public void AddElement(ClientBindingModel model)
+
+        public ClientViewModel GetElement(ClientBindingModel model)
         {
-            Client element = context.Clients.FirstOrDefault(rec => rec.Name ==
-            model.Name);
+            Client element = context.Clients.FirstOrDefault(rec => rec.Email == model.Email);
             if (element != null)
             {
-                throw new Exception("Уже есть клиент с таким ФИО");
+                return new ClientViewModel
+                {
+                    Id = element.Id,
+                    Name = element.Name,
+                    Email = element.Email
+                };
+            }
+            throw new Exception("Элемент не найден");
+        }
+
+        public void AddElement(ClientBindingModel model)
+        {
+            Client element = context.Clients.FirstOrDefault(rec => rec.Name == model.Name && rec.Email == model.Email);
+            if (element != null)
+            {
+                throw new Exception("Уже есть клиент с таким ФИО или почтой");
             }
             context.Clients.Add(new Client
             {
@@ -55,6 +72,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             });
             context.SaveChanges();
         }
+
         public void UpdElement(ClientBindingModel model)
         {
             Client element = context.Clients.FirstOrDefault(rec => rec.Name ==
@@ -71,6 +89,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             element.Name = model.Name;
             context.SaveChanges();
         }
+
         public void DelElement(int id)
         {
             Client element = context.Clients.FirstOrDefault(rec => rec.Id == id);

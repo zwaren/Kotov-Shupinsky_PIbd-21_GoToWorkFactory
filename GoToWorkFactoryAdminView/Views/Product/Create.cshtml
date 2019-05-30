@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm("CreatePost", "Candy", FormMethod.Post)) 
+@using (Html.BeginForm("CreatePost", "Product", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
@@ -40,7 +40,7 @@
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.ProductMaterials[0].Name)
+                        @Html.DisplayNameFor(model => model.ProductMaterials[0].MaterialName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ProductMaterials[0].Count)
@@ -51,7 +51,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.MaterialName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Count)

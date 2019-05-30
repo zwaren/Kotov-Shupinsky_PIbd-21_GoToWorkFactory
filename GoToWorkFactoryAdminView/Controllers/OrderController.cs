@@ -26,5 +26,11 @@ namespace GoToWorkFactoryAdminView.Controllers
         {
             return View(_service.GetElement(id));
         }
+
+        public ActionResult Delete(int id)
+        {
+            _service.DelElement(id);
+            return RedirectToAction("Index");
+        }
     }
 }

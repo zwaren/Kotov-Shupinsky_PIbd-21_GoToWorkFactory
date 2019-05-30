@@ -44,7 +44,7 @@ namespace GoToWorkFactoryAdminView.Controllers
         {
             var product = (ProductBindingModel) Session["Product"];
 
-            product.Name = Request["ProductName"];
+            product.Name = Request["Name"];
             product.Price = Convert.ToDecimal(Request["Price"]);
 
             _service.AddElement(product);
@@ -56,7 +56,7 @@ namespace GoToWorkFactoryAdminView.Controllers
 
         public ActionResult AddMaterial()
         {
-            var materials = new SelectList(_matService.GetList(), "Id", "MaterialName");
+            var materials = new SelectList(_matService.GetList(), "Id", "Name");
             ViewBag.Materials = materials;
             return View();
         }

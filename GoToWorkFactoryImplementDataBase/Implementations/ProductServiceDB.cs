@@ -41,25 +41,28 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
 
         public List<ProductViewModel> GetFilteredList()
         {
-            List<ProductViewModel> result = context.Products.Where(e => productAllowed(e)).Select(rec => new ProductViewModel
-            {
-                Id = rec.Id,
-                Name = rec.Name,
-                Price = rec.Price,
-                ProductMaterials = context.ProductMaterials
-                    .Where(recPC => recPC.ProductId == rec.Id)
-                    .Select(recPC => new ProductMaterialViewModel
-                    {
-                        Id = recPC.Id,
-                        ProductId = recPC.ProductId,
-                        MaterialId = recPC.MaterialId,
-                        MaterialName = recPC.Material.Name,
-                        Count = recPC.Count
-                    })
-                    .ToList()
-            })
-            .ToList();
-            return result;
+            var result = context.Products.Where(productAllowed);
+            List<ProductViewModel> result1 = result
+                .Select(rec => new ProductViewModel
+                {
+                    Id = rec.Id,
+                    Name = rec.Name,
+                    Price = rec.Price
+                })
+                .ToList();
+            foreach (var x in result1)
+                x.ProductMaterials = context.ProductMaterials
+                        .Where(recPC => recPC.ProductId == x.Id)
+                        .Select(recPC => new ProductMaterialViewModel
+                        {
+                            Id = recPC.Id,
+                            ProductId = recPC.ProductId,
+                            MaterialId = recPC.MaterialId,
+                            MaterialName = recPC.Material.Name,
+                            Count = recPC.Count
+                        })
+                        .ToList();
+            return result1;
         }
 
         private bool productAllowed(Product p)
@@ -94,6 +97,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             }
             throw new Exception("Элемент не найден");
         }
+
         public void AddElement(ProductBindingModel model)
         {
             using (var transaction = context.Database.BeginTransaction())
@@ -106,12 +110,11 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                     {
                         throw new Exception("Уже есть изделие с таким названием");
                     }
-                    element = new Product
+                    element = context.Products.Add(new Product
                     {
                         Name = model.Name,
                         Price = model.Price
-                    };
-                    context.Products.Add(element);
+                    });
                     context.SaveChanges();
                     // убираем дубли по компонентам
                     var groupMaterials = model.ProductMaterials
@@ -141,6 +144,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 }
             }
         }
+
         public void UpdElement(ProductBindingModel model)
         {
             using (var transaction = context.Database.BeginTransaction())
@@ -214,6 +218,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 }
             }
         }
+
         public void DelElement(int id)
         {
             using (var transaction = context.Database.BeginTransaction())
