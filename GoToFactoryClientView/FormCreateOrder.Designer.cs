@@ -42,6 +42,7 @@
             this.countDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderProductViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.checkBoxReserved = new System.Windows.Forms.CheckBox();
+            this.buttonDel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.orderProductBindingModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderProductViewModelBindingSource)).BeginInit();
@@ -154,11 +155,22 @@
             this.checkBoxReserved.UseVisualStyleBackColor = true;
             this.checkBoxReserved.CheckedChanged += new System.EventHandler(this.checkBoxReserved_CheckedChanged);
             // 
+            // buttonDel
+            // 
+            this.buttonDel.Location = new System.Drawing.Point(416, 6);
+            this.buttonDel.Name = "buttonDel";
+            this.buttonDel.Size = new System.Drawing.Size(156, 23);
+            this.buttonDel.TabIndex = 12;
+            this.buttonDel.Text = "Убрать из корзины";
+            this.buttonDel.UseVisualStyleBackColor = true;
+            this.buttonDel.Click += new System.EventHandler(this.ButtonDel_Click);
+            // 
             // FormCreateOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 423);
+            this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.checkBoxReserved);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.buttonCancel);
@@ -191,5 +203,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn countDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource orderProductViewModelBindingSource;
         private System.Windows.Forms.CheckBox checkBoxReserved;
+        private System.Windows.Forms.Button buttonDel;
     }
 }

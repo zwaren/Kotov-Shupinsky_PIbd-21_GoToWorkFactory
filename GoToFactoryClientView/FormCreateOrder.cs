@@ -29,6 +29,11 @@ namespace GoToWorkFactoryClientView
 
         private void FormCreateOrder_Load(object sender, EventArgs e)
         {
+            LoadData();
+        }
+
+        private void LoadData()
+        {
             try
             {
                 List<OrderProductViewModel> list = new List<OrderProductViewModel>();
@@ -50,6 +55,11 @@ namespace GoToWorkFactoryClientView
                     dataGridView.Columns[3].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
+
+                order.Sum = 0;
+                foreach (var op in order.OrderProducts)
+                    order.Sum += serviceP.GetElement(op.ProductId).Price * op.Count;
+
                 textBoxSum.Text = order.Sum.ToString();
             }
             catch (Exception ex)
@@ -73,6 +83,7 @@ namespace GoToWorkFactoryClientView
             }
         }
 
+
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
@@ -82,6 +93,23 @@ namespace GoToWorkFactoryClientView
         private void checkBoxReserved_CheckedChanged(object sender, EventArgs e)
         {
             order.Reserved = checkBoxReserved.Checked;
+        }
+
+        private void ButtonDel_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            {
+                var pId = Convert.ToInt32(row.Cells[0].Value);
+                if (order.OrderProducts[pId].Count == 1)
+                {
+                    order.OrderProducts.Remove(order.OrderProducts[pId]);
+                }
+                else
+                {
+                    order.OrderProducts[pId].Count -= 1;
+                }
+            }
+            LoadData();
         }
     }
 }

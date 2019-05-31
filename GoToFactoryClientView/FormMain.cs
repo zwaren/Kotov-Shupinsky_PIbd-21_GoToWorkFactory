@@ -71,8 +71,8 @@ namespace GoToWorkFactoryClientView
             var form = Container.Resolve<FormAuthorization>();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                var id = form.getId();
-                var user = cService.GetElement(id.Value);
+                var id = form.Id;
+                var user = cService.GetElement(id);
                 if (user != null)
                 {
                     clientId = id;
@@ -103,20 +103,14 @@ namespace GoToWorkFactoryClientView
             {
                 MessageBox.Show("Вы должны быть залогинены!\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-                
-            order.Sum = 0;
-            foreach (var op in order.OrderProducts)
-                order.Sum += pService.GetElement(op.ProductId).Price;
 
             var form = Container.Resolve<FormCreateOrder>();
             form.order = order;
             if (form.ShowDialog() == DialogResult.OK)
             {
-                LoadData();
+                order = new OrderBindingModel();
+                order.OrderProducts = new List<OrderProductBindingModel>();
             }
-
-            order = new OrderBindingModel();
-            order.OrderProducts = new List<OrderProductBindingModel>();
             LoadData();
         }
 

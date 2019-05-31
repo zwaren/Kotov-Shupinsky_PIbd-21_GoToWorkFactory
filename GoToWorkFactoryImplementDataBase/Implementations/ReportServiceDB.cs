@@ -29,6 +29,32 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
 
         public void createMaterialRequest(ReportBindingModel model)
         {
+            var materials = new Dictionary<Material, int>();
+            foreach (var o in context.Orders.Where(o => o.Status == OrderStatus.Принят && !o.Reserved))
+                foreach (var op in context.OrderProducts.Where(x => x.OrderId == o.Id))
+                {
+                    var p = context.Products.FirstOrDefault(x => x.Id == op.ProductId);
+                    foreach (var pm in context.ProductMaterials.Where(pm => pm.ProductId == p.Id))
+                    {
+                        var m = context.Materials.FirstOrDefault(x => x.Id == pm.MaterialId);
+                        if (!materials.ContainsKey(m))
+                            materials.Add(m, 0);
+                        materials[m] += pm.Count * op.Count;
+                    }
+                }
+                    
+            foreach (var m in materials.Keys.ToArray())
+                if (materials[m] > context.Materials.First(rec => rec.Id == m.Id).Count)
+                {
+                    materials[m] = materials[m] - context.Materials.First(rec => rec.Id == m.Id).Count;
+                }
+                else
+                {
+                    materials.Remove(m);
+                }
+
+            if (materials.Count == 0) return;
+
             if (File.Exists(model.FileName))
             {
                 File.Delete(model.FileName);
@@ -62,21 +88,6 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 paragraphFormat.SpaceBefore = 0;
                 //добавляем абзац в документ
                 range.InsertParagraphAfter();
-
-
-                var materials = new Dictionary<Material, int>();
-                foreach (var o in context.Orders.Where(o => o.Status == OrderStatus.Принят))
-                    foreach (var p in context.OrderProducts.Where(op => op.OrderId == o.Id).Select(op => context.Products.FirstOrDefault(p => p.Id == op.ProductId)))
-                        foreach (var pm in context.ProductMaterials.Where(pm => pm.ProductId == p.Id))
-                        {
-                            var m = context.Materials.FirstOrDefault(x => x.Id == pm.MaterialId);
-                            if (!materials.ContainsKey(m))
-                                materials.Add(m, 0);
-                            materials[m] += pm.Count;
-                        }
-                foreach (var m in materials.Keys.ToArray())
-                    materials[m] = materials[m] - context.Materials.First(rec => rec.Id == m.Id).Count;
-
 
                 //создаем таблицу
                 var paragraphTable = document.Paragraphs.Add(Type.Missing);

@@ -9,9 +9,9 @@ namespace GoToWorkFactoryClientView
     public partial class FormAuthorization : Form
     {
         private readonly IClientService service;
-        private int? id;
+        public int Id { get; private set; }
 
-        public FormAuthorization( IClientService service)
+        public FormAuthorization(IClientService service)
         {
             InitializeComponent();
             this.service = service;
@@ -19,15 +19,17 @@ namespace GoToWorkFactoryClientView
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            id = service.GetElement(new ClientBindingModel { Email = textBoxEmail.Text }).Id;
-            MessageBox.Show("Вход прощол успешно", "Собщенье", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        public int? getId()
-        {
-            return id;
+            try
+            {
+                Id = service.GetElement(new ClientBindingModel { Email = textBoxEmail.Text }).Id;
+                MessageBox.Show("Вход прошел успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch
+            {
+                MessageBox.Show("Вход прошел не успешно", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

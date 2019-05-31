@@ -20,5 +20,5 @@ namespace GoToWorkFactoryServiceDAL.BindingModels
 
         [DataMember]
         public List<OrderProductBindingModel> OrderProducts { get; set; }
-	}
+    }
 }

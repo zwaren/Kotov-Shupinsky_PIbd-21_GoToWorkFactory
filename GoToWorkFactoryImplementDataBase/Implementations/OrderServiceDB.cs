@@ -22,12 +22,55 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
 
         public void FinishOrder(OrderBindingModel model)
         {
-            Order element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-            if (element == null)
+            Order o = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+            if (o == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            element.Status = OrderStatus.Готов;
+            var ms = new Dictionary<Material, int>();
+            if (!o.Reserved)
+            {
+                ms = totalMaterials(o);
+                foreach (var m in ms)
+                    if (context.Materials.First(e => e.Id == m.Key.Id).Count < m.Value)
+                        throw new Exception("Не достаточно матералов на складе");
+            }
+
+            o.Status = OrderStatus.Готов;
+            if (!o.Reserved) decMaterials(ms);
+            context.SaveChanges();
+        }
+
+        private void decMaterials(Dictionary<Material, int> ms)
+        {
+            foreach (var m in ms)
+                m.Key.Count -= m.Value;
+        }
+
+        private Dictionary<Material, int> totalMaterials(Order order)
+        {
+            var ms = new Dictionary<Material, int>();
+            foreach (var op in context.OrderProducts.Where(op => op.OrderId == order.Id))
+            {
+                var p = context.Products.FirstOrDefault(x => x.Id == op.ProductId);
+                foreach (var pm in context.ProductMaterials.Where(pm => pm.ProductId == p.Id))
+                {
+                    var m = context.Materials.FirstOrDefault(x => x.Id == pm.MaterialId);
+                    if (!ms.ContainsKey(m)) ms.Add(m, 0);
+                    ms[m] += pm.Count * op.Count;
+                }
+            }
+            return ms;
+        }
+
+        private void decMaterials(Order o)
+        {
+            foreach (var op in context.OrderProducts.Where(op => op.OrderId == o.Id))
+            {
+                var p = context.Products.FirstOrDefault(x => x.Id == op.ProductId);
+                foreach (var pm in p.ProductMaterials)
+                    pm.Material.Count -= pm.Count;
+            }
             context.SaveChanges();
         }
 

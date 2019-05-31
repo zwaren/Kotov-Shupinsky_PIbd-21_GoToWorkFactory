@@ -1,4 +1,5 @@
-﻿using GoToWorkFactoryServiceDAL.Interfaces;
+﻿using GoToWorkFactoryServiceDAL.BindingModels;
+using GoToWorkFactoryServiceDAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,12 @@ namespace GoToWorkFactoryAdminView.Controllers
         public ActionResult Delete(int id)
         {
             _service.DelElement(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Finish(int id)
+        {
+            _service.FinishOrder(new OrderBindingModel { Id = id });
             return RedirectToAction("Index");
         }
     }
