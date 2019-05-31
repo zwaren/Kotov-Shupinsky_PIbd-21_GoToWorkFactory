@@ -125,7 +125,7 @@ namespace GoToWorkFactoryClientView
            var model = (new ReportBindingModel
             {
                 Email = email,
-                FileName = @"D:\test.docx",
+                FileName = @"D:\test.pdf",
                 DateFrom = new DateTime(2018, 1, 1),
                 DateTo = DateTime.Now
             });
