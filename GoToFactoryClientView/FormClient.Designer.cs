@@ -41,42 +41,47 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 7);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 17);
+            this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 47);
+            this.label2.Location = new System.Drawing.Point(9, 38);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Email:";
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(87, 3);
+            this.textBoxName.Location = new System.Drawing.Point(65, 2);
+            this.textBoxName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxName.Multiline = true;
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(312, 31);
+            this.textBoxName.Size = new System.Drawing.Size(235, 26);
             this.textBoxName.TabIndex = 2;
             // 
             // textBoxEmail
             // 
-            this.textBoxEmail.Location = new System.Drawing.Point(87, 44);
+            this.textBoxEmail.Location = new System.Drawing.Point(65, 36);
+            this.textBoxEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxEmail.Multiline = true;
             this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(311, 32);
+            this.textBoxEmail.Size = new System.Drawing.Size(234, 27);
             this.textBoxEmail.TabIndex = 3;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(15, 126);
+            this.buttonSave.Location = new System.Drawing.Point(11, 102);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(231, 37);
+            this.buttonSave.Size = new System.Drawing.Size(173, 30);
             this.buttonSave.TabIndex = 4;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -84,9 +89,10 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(255, 126);
+            this.buttonCancel.Location = new System.Drawing.Point(191, 102);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(144, 36);
+            this.buttonCancel.Size = new System.Drawing.Size(108, 29);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -94,26 +100,29 @@
             // 
             // textBoxPass
             // 
-            this.textBoxPass.Location = new System.Drawing.Point(87, 87);
+            this.textBoxPass.Location = new System.Drawing.Point(65, 71);
+            this.textBoxPass.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxPass.Multiline = true;
             this.textBoxPass.Name = "textBoxPass";
-            this.textBoxPass.Size = new System.Drawing.Size(312, 33);
+            this.textBoxPass.PasswordChar = '*';
+            this.textBoxPass.Size = new System.Drawing.Size(235, 28);
             this.textBoxPass.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 90);
+            this.label3.Location = new System.Drawing.Point(9, 73);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 17);
+            this.label3.Size = new System.Drawing.Size(56, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Password:";
             // 
             // FormClient
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(406, 172);
+            this.ClientSize = new System.Drawing.Size(304, 140);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxPass);
             this.Controls.Add(this.buttonCancel);
@@ -122,6 +131,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormClient";
             this.Text = "Client";
             this.Load += new System.EventHandler(this.FormClient_Load);

@@ -156,8 +156,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.BindingModels.OrderProductBindingModel.datasource" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.ClientViewModel.datasource" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.MaterialViewModel.datasource" />
+    <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.OrderProductViewModel.datasource" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.OrderViewModel.datasource" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.ProductMaterialViewModel.datasource" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.ProductViewModel.datasource" />

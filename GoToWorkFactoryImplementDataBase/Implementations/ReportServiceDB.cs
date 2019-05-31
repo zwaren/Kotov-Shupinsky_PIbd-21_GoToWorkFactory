@@ -14,6 +14,7 @@ using Microsoft.Office.Interop.Word;
 using System.Net.Mail;
 using System.Configuration;
 using System.Net;
+using GoToWorkFactoryServiceDAL.ViewModels;
 
 namespace GoToWorkFactoryImplementDataBase.Implementations
 {
@@ -64,16 +65,16 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
 
 
                 var materials = new Dictionary<Material, int>();
-                var ords = context.Orders.Where(o => o.Status == OrderStatus.Принят).ToList();
-                foreach (var o in ords)
-                    foreach (var op in o.OrderProducts)
-                        foreach (var pm in op.Product.ProductMaterials)
+                foreach (var o in context.Orders.Where(o => o.Status == OrderStatus.Принят))
+                    foreach (var p in context.OrderProducts.Where(op => op.OrderId == o.Id).Select(op => context.Products.FirstOrDefault(p => p.Id == op.ProductId)))
+                        foreach (var pm in context.ProductMaterials.Where(pm => pm.ProductId == p.Id))
                         {
-                            if (!materials.ContainsKey(pm.Material))
-                                materials.Add(pm.Material, 0);
-                            materials[pm.Material] += pm.Count;
+                            var m = context.Materials.FirstOrDefault(x => x.Id == pm.MaterialId);
+                            if (!materials.ContainsKey(m))
+                                materials.Add(m, 0);
+                            materials[m] += pm.Count;
                         }
-                foreach (var m in materials.Keys)
+                foreach (var m in materials.Keys.ToArray())
                     materials[m] = materials[m] - context.Materials.First(rec => rec.Id == m.Id).Count;
 
 
@@ -116,10 +117,10 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 //сохраняем
                 object fileFormat = WdSaveFormat.wdFormatXMLDocument;
                 document.SaveAs(model.FileName, ref fileFormat, ref missing,
-                ref missing, ref missing, ref missing, ref missing,
-                ref missing, ref missing, ref missing, ref missing,
-                ref missing, ref missing, ref missing, ref missing,
-                ref missing);
+                    ref missing, ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing, ref missing,
+                    ref missing);
                 document.Close(ref missing, ref missing, ref missing);
             }
             catch (Exception)
@@ -130,6 +131,8 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             {
                 winword.Quit();
             }
+
+            SendEmail(model.Email, "Заявка на материалы", "", model.FileName);
         }
 
         public void getAdminOrderList(ReportBindingModel model)
@@ -206,29 +209,37 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
 
 
             //заполняем таблицу
-            var list = context.Orders.Where(o => o.Status == OrderStatus.Принят).ToList();
+            var list = context.Orders.Where(o => o.Status == OrderStatus.Принят).Select(o => new OrderViewModel
+            {
+                Id = o.Id,
+                ClientId = o.ClientId,
+                Sum = o.Sum,
+                Reserved = o.Reserved,
+                Status = o.Status.ToString(),
+                DateCreate = SqlFunctions.DateName("dd", o.DateCreate) + " " + 
+                             SqlFunctions.DateName("mm", o.DateCreate) + " " +
+                             SqlFunctions.DateName("yyyy", o.DateCreate)
+            }).ToList();
             iTextSharp.text.Font fontForCells = new iTextSharp.text.Font(baseFont, 10);
             foreach (var order in list)
             {
-                foreach (var op in order.OrderProducts)
+                foreach (var op in context.OrderProducts.Where(op => op.OrderId == order.Id))
                 {
-                    cell = new PdfPCell(new Phrase(order.Client.Name, fontForCells));
+                    cell = new PdfPCell(new Phrase(context.Clients.First(c => c.Id == order.ClientId).Name, fontForCells));
                     table.AddCell(cell);
-                    cell = new PdfPCell(new Phrase(SqlFunctions.DateName("dd", order.DateCreate) + " " +
-                                                   SqlFunctions.DateName("mm", order.DateCreate) + " " +
-                                                   SqlFunctions.DateName("yyyy", order.DateCreate), fontForCells));
+                    cell = new PdfPCell(new Phrase(order.DateCreate, fontForCells));
                     table.AddCell(cell);
                 
-                    cell = new PdfPCell(new Phrase(op.Product.Name, fontForCells));
+                    cell = new PdfPCell(new Phrase(context.Products.First(p => p.Id == op.ProductId).Name, fontForCells));
                     table.AddCell(cell);
                     cell = new PdfPCell(new Phrase(op.Count.ToString(), fontForCells));
                     cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                     table.AddCell(cell);
                 
-                    cell = new PdfPCell(new Phrase((op.Product.Price * op.Count).ToString(), fontForCells));
+                    cell = new PdfPCell(new Phrase((context.Products.First(p => p.Id == op.ProductId).Price * op.Count).ToString(), fontForCells));
                     cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                     table.AddCell(cell);
-                    cell = new PdfPCell(new Phrase(order.Status.ToString(), fontForCells));
+                    cell = new PdfPCell(new Phrase(order.Status, fontForCells));
                     table.AddCell(cell);
                 }
             }
@@ -258,6 +269,8 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             //вставляем таблицу
             doc.Add(table);
             doc.Close();
+
+            SendEmail(model.Email, "Оповещение по заказам", "", model.FileName);
         }
 
         public void getClentOrderList(ReportBindingModel model)
@@ -282,7 +295,10 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.EnableSsl = true;
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtpClient.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["MailLogin"], ConfigurationManager.AppSettings["MailPassword"]);
+                smtpClient.Credentials = new NetworkCredential(
+                    ConfigurationManager.AppSettings["MailLogin"], 
+                    ConfigurationManager.AppSettings["MailPassword"]
+                    );
                 smtpClient.Send(m);
             }
             catch (Exception ex)

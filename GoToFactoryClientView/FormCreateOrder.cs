@@ -12,21 +12,17 @@ namespace GoToWorkFactoryClientView
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
-
-        public int Id { set { id = value; } }
-
-        private readonly IClientService serviceC;
+        
 
         private readonly IProductService serviceP;
 
         private readonly IClientMainService serviceM;
 
-        private int id;
+        public OrderBindingModel order;
 
-        public FormCreateOrder(IClientService serviceC, IProductService serviceP, IClientMainService serviceM)
+        public FormCreateOrder(IProductService serviceP, IClientMainService serviceM)
         {
             InitializeComponent();
-            this.serviceC = serviceC;
             this.serviceP = serviceP;
             this.serviceM = serviceM;
         }
@@ -35,89 +31,45 @@ namespace GoToWorkFactoryClientView
         {
             try
             {
-                ClientViewModel view = serviceC.GetElement(id);
-                if (view != null)
+                List<OrderProductViewModel> list = new List<OrderProductViewModel>();
+                foreach (var op in order.OrderProducts)
                 {
-                    textBoxName.Text = view.Name;
+                    list.Add(new OrderProductViewModel
+                    {
+                        ProductName = serviceP.GetElement(op.ProductId).Name,
+                        OrderId = op.OrderId,
+                        ProductId = op.ProductId,
+                        Count = op.Count
+                    });
                 }
-
-                List<ProductViewModel> listP = serviceP.GetList();
-                if (listP != null)
+                if (list != null)
                 {
-                    comboBoxProduct.DisplayMember = "ProductName";
-                    comboBoxProduct.ValueMember = "Id";
-                    comboBoxProduct.DataSource = listP;
-                    comboBoxProduct.SelectedItem = null;
+                    dataGridView.DataSource = list;
+                    dataGridView.Columns[0].Visible = false;
+                    dataGridView.Columns[2].Visible = false;
+                    dataGridView.Columns[3].Visible = false;
+                    dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
+                textBoxSum.Text = order.Sum.ToString();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void CalcSum()
-        {
-            if (comboBoxProduct.SelectedValue != null &&
-            !string.IsNullOrEmpty(textBoxCount.Text))
-            {
-                try
-                {
-                    int id = Convert.ToInt32(comboBoxProduct.SelectedValue);
-                    ProductViewModel product = serviceP.GetElement(id);
-                    int count = Convert.ToInt32(textBoxCount.Text);
-                    textBoxSum.Text = (count * product.Price).ToString();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void textBoxCount_TextChanged(object sender, EventArgs e)
-        {
-            CalcSum();
-        }
-
-        private void comboBoxProduct_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CalcSum();
-        }
-
+        
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxCount.Text))
-            {
-                MessageBox.Show("Заполните поле Количество", "Ошибка",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (comboBoxProduct.SelectedValue == null)
-            {
-                MessageBox.Show("Выберите изделие", "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-                return;
-            }
             try
             {
-                serviceM.CreateOrder(new OrderBindingModel
-                {
-                    ClientId = id,
-                   // Count = Convert.ToInt32(textBoxCount.Text),
-                    Sum = Convert.ToInt32(textBoxSum.Text)
-                });
-                MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                serviceM.CreateOrder(order);
+                MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;                
-            Close();
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -125,6 +77,11 @@ namespace GoToWorkFactoryClientView
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void checkBoxReserved_CheckedChanged(object sender, EventArgs e)
+        {
+            order.Reserved = checkBoxReserved.Checked;
         }
     }
 }

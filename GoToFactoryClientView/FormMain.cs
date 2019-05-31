@@ -103,7 +103,13 @@ namespace GoToWorkFactoryClientView
             foreach (var op in order.OrderProducts)
                 order.Sum += pService.GetElement(op.ProductId).Price;
 
-            service.CreateOrder(order);
+            var form = Container.Resolve<FormCreateOrder>();
+            form.order = order;
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                LoadData();
+            }
+
             order = new OrderBindingModel();
             order.OrderProducts = new List<OrderProductBindingModel>();
             LoadData();

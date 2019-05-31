@@ -45,6 +45,7 @@ namespace GoToWorkFactoryAdminView
             container.RegisterType<IMaterialService, MaterialServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IClientService, ClientServiceDB>(new HierarchicalLifetimeManager());
             container.RegisterType<IOrderService, OrderServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<IReportService, ReportServiceDB>(new HierarchicalLifetimeManager());
             // NOTE: To load from web.config uncomment the line below.
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();
