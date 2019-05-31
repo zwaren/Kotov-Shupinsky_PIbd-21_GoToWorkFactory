@@ -31,7 +31,7 @@ namespace GoToWorkFactoryClientView
             currentContainer.RegisterType<IMaterialService, MaterialServiceDB>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IProductService, ProductServiceDB>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IClientMainService, ClientMainServiceDB>(new HierarchicalLifetimeManager());
-            //currentContainer.RegisterType<IReportService, ReportServiceDB>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportService, ReportServiceDB>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
