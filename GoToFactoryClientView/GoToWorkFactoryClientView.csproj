@@ -155,6 +155,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.BindingModels.OrderProductBindingModel.datasource" />
     <None Include="Properties\DataSources\GoToWorkFactoryServiceDAL.ViewModels.ClientViewModel.datasource" />
