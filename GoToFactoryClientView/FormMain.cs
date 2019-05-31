@@ -122,13 +122,14 @@ namespace GoToWorkFactoryClientView
 
         private void buttonSend_Click(object sender, EventArgs e)
         {
-            rService.createMaterialRequest(new ReportBindingModel
+           var model = (new ReportBindingModel
             {
                 Email = email,
                 FileName = @"D:\test.docx",
                 DateFrom = new DateTime(2018, 1, 1),
                 DateTo = DateTime.Now
             });
+            rService.getClentOrderList(model, clientId.Value);
         }
     }
 }
