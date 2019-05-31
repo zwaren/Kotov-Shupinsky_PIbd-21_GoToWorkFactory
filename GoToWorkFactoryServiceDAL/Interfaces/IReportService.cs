@@ -1,9 +1,4 @@
 ﻿using GoToWorkFactoryServiceDAL.BindingModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoToWorkFactoryServiceDAL.Interfaces
 {
@@ -13,6 +8,6 @@ namespace GoToWorkFactoryServiceDAL.Interfaces
 
         void getAdminOrderList(ReportBindingModel model);
 
-        void getClentOrderList(ReportBindingModel model);
+        void getClentOrderList(ReportBindingModel model, int clientId);
     }
 }

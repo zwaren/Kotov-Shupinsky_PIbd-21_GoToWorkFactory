@@ -11,6 +11,7 @@ namespace GoToWorkFactoryClientView
     public partial class FormMain : Form
     {
         int? clientId;
+        string email;
         OrderBindingModel order;
 
         [Dependency]
@@ -19,15 +20,15 @@ namespace GoToWorkFactoryClientView
         private readonly IClientMainService service;
         private readonly IClientService cService;
         private readonly IProductService pService;
+        private readonly IReportService rService;
 
-        //private int ClientId;
-
-        public FormMain(IClientMainService service, IClientService cService, IProductService pService)
+        public FormMain(IClientMainService service, IClientService cService, IProductService pService, IReportService rService)
         {
             InitializeComponent();
             this.service = service;
             this.cService = cService;
             this.pService = pService;
+            this.rService = rService;
             order = new OrderBindingModel();
             order.OrderProducts = new List<OrderProductBindingModel>();
         }
@@ -72,7 +73,11 @@ namespace GoToWorkFactoryClientView
             {
                 var id = form.getId();
                 var user = cService.GetElement(id.Value);
-                if (user != null) clientId = id;
+                if (user != null)
+                {
+                    clientId = id;
+                    email = form.getEmail();
+                }
                 labelUser.Text = user.Name;
             }
         }
@@ -113,6 +118,17 @@ namespace GoToWorkFactoryClientView
             order = new OrderBindingModel();
             order.OrderProducts = new List<OrderProductBindingModel>();
             LoadData();
+        }
+
+        private void buttonSend_Click(object sender, EventArgs e)
+        {
+            rService.createMaterialRequest(new ReportBindingModel
+            {
+                Email = email,
+                FileName = @"D:\test.docx",
+                DateFrom = new DateTime(2018, 1, 1),
+                DateTo = DateTime.Now
+            });
         }
     }
 }

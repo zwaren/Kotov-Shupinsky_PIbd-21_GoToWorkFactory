@@ -273,9 +273,142 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             SendEmail(model.Email, "Оповещение по заказам", "", model.FileName);
         }
 
-        public void getClentOrderList(ReportBindingModel model)
+        public void getClentOrderList(ReportBindingModel model, int clientId)
         {
-            throw new NotImplementedException();
+            if (!File.Exists("TIMCYR.TTF"))
+            {
+                File.WriteAllBytes("TIMCYR.TTF", Properties.Resources.TIMCYR);
+            }
+            //открываем файл для работы
+            FileStream fs = new FileStream(model.FileName, FileMode.OpenOrCreate, FileAccess.Write);
+            //создаем документ, задаем границы, связываем документ и поток
+            iTextSharp.text.Document doc = new iTextSharp.text.Document();
+            doc.SetMargins(0.5f, 0.5f, 0.5f, 0.5f);
+            PdfWriter writer = PdfWriter.GetInstance(doc, fs);
+            doc.Open();
+            BaseFont baseFont = BaseFont.CreateFont("TIMCYR.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+
+            //вставляем заголовок
+            var phraseTitle = new Phrase("Заказы клиента",
+            new iTextSharp.text.Font(baseFont, 16, iTextSharp.text.Font.BOLD));
+            iTextSharp.text.Paragraph paragraph = new iTextSharp.text.Paragraph(phraseTitle)
+            {
+                Alignment = Element.ALIGN_CENTER,
+                SpacingAfter = 12
+            };
+            doc.Add(paragraph);
+            var phrasePeriod = new Phrase("c " + model.DateFrom.Value.ToShortDateString() +
+            " по " + model.DateTo.Value.ToShortDateString(),
+            new iTextSharp.text.Font(baseFont, 14, iTextSharp.text.Font.BOLD));
+            paragraph = new iTextSharp.text.Paragraph(phrasePeriod)
+            {
+                Alignment = Element.ALIGN_CENTER,
+                SpacingAfter = 12
+            };
+            doc.Add(paragraph);
+
+
+            //вставляем таблицу, задаем количество столбцов, и ширину колонок
+            PdfPTable table = new PdfPTable(6)
+            {
+                TotalWidth = 800F
+            };
+            table.SetTotalWidth(new float[] { 160, 140, 160, 100, 100, 140 });
+
+
+            //вставляем шапку
+            PdfPCell cell = new PdfPCell();
+            var fontForCellBold = new iTextSharp.text.Font(baseFont, 10, iTextSharp.text.Font.BOLD);
+            table.AddCell(new PdfPCell(new Phrase("ФИО клиента", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Дата создания", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Изделие", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Количество", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Сумма", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Статус", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+
+
+            //заполняем таблицу
+            var list = context.Orders.Where(o => o.ClientId == clientId).Select(o => new OrderViewModel
+            {
+                Id = o.Id,
+                ClientId = o.ClientId,
+                Sum = o.Sum,
+                Reserved = o.Reserved,
+                Status = o.Status.ToString(),
+                DateCreate = SqlFunctions.DateName("dd", o.DateCreate) + " " +
+                             SqlFunctions.DateName("mm", o.DateCreate) + " " +
+                             SqlFunctions.DateName("yyyy", o.DateCreate)
+            }).ToList();
+            iTextSharp.text.Font fontForCells = new iTextSharp.text.Font(baseFont, 10);
+            foreach (var order in list)
+            {
+                foreach (var op in context.OrderProducts.Where(op => op.OrderId == order.Id))
+                {
+                    cell = new PdfPCell(new Phrase(context.Clients.First(c => c.Id == order.ClientId).Name, fontForCells));
+                    table.AddCell(cell);
+                    cell = new PdfPCell(new Phrase(order.DateCreate, fontForCells));
+                    table.AddCell(cell);
+
+                    cell = new PdfPCell(new Phrase(context.Products.First(p => p.Id == op.ProductId).Name, fontForCells));
+                    table.AddCell(cell);
+                    cell = new PdfPCell(new Phrase(op.Count.ToString(), fontForCells));
+                    cell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    table.AddCell(cell);
+
+                    cell = new PdfPCell(new Phrase((context.Products.First(p => p.Id == op.ProductId).Price * op.Count).ToString(), fontForCells));
+                    cell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    table.AddCell(cell);
+                    cell = new PdfPCell(new Phrase(order.Status, fontForCells));
+                    table.AddCell(cell);
+                }
+            }
+
+
+            //вставляем итого
+            cell = new PdfPCell(new Phrase("Итого:", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                Colspan = 4,
+                Border = 0
+            };
+            table.AddCell(cell);
+            cell = new PdfPCell(new Phrase(list.Sum(rec => rec.Sum).ToString(), fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                Border = 0
+            };
+            table.AddCell(cell);
+            cell = new PdfPCell(new Phrase("", fontForCellBold))
+            {
+                Border = 0
+            };
+            table.AddCell(cell);
+
+
+            //вставляем таблицу
+            doc.Add(table);
+            doc.Close();
+
+            SendEmail(model.Email, "Оповещение по заказам", "", model.FileName);
         }
 
         private void SendEmail(string mailAddress, string subject, string text, string attachmentPath)
