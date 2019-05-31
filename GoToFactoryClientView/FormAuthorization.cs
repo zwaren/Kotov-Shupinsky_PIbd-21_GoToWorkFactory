@@ -10,7 +10,6 @@ namespace GoToWorkFactoryClientView
     {
         private readonly IClientService service;
         private int? id;
-        private string email;
 
         public FormAuthorization( IClientService service)
         {
@@ -21,7 +20,6 @@ namespace GoToWorkFactoryClientView
         private void buttonSave_Click(object sender, EventArgs e)
         {
             id = service.GetElement(new ClientBindingModel { Email = textBoxEmail.Text }).Id;
-            email = service.GetElement(new ClientBindingModel { Email = textBoxEmail.Text }).Email;
             MessageBox.Show("Вход прощол успешно", "Собщенье", MessageBoxButtons.OK, MessageBoxIcon.Information);
             DialogResult = DialogResult.OK;
             Close();
