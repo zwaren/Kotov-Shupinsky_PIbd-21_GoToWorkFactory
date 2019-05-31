@@ -31,9 +31,5 @@ namespace GoToWorkFactoryClientView
         {
             return id;
         }
-        public string getEmail()
-        {
-            return email;
-        }
     }
 }

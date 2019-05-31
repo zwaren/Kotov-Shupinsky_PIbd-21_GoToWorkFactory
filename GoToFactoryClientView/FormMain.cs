@@ -76,7 +76,7 @@ namespace GoToWorkFactoryClientView
                 if (user != null)
                 {
                     clientId = id;
-                    email = form.getEmail();
+                    email = user.Email;
                 }
                 labelUser.Text = user.Name;
             }
