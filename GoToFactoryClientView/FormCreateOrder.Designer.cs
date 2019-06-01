@@ -179,7 +179,7 @@
             this.Controls.Add(this.label4);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormCreateOrder";
-            this.Text = "FormCreateOrder";
+            this.Text = "Ваш заказ";
             this.Load += new System.EventHandler(this.FormCreateOrder_Load);
             ((System.ComponentModel.ISupportInitialize)(this.orderProductBindingModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();

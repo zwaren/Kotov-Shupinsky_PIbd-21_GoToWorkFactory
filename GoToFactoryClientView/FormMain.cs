@@ -116,14 +116,21 @@ namespace GoToWorkFactoryClientView
 
         private void buttonSend_Click(object sender, EventArgs e)
         {
-           var model = (new ReportBindingModel
+            try
             {
-                Email = email,
-                FileName = @"D:\test.pdf",
-                DateFrom = new DateTime(2018, 1, 1),
-                DateTo = DateTime.Now
-            });
-            rService.getClentOrderList(model, clientId.Value);
+                var model = (new ReportBindingModel
+                {
+                    Email = "deviler.san@yandex.ru",
+                    FileName = @"D:\test.pdf",
+                    DateFrom = new DateTime(2018, 1, 1),
+                    DateTo = DateTime.Now
+                });
+                rService.getClentOrderList(model, clientId.Value);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Вы должны быть залогинены!\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

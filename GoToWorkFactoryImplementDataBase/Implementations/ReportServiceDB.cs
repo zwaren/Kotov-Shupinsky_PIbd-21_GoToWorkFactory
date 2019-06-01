@@ -30,7 +30,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
         public void createMaterialRequest(ReportBindingModel model)
         {
             var materials = new Dictionary<Material, int>();
-            foreach (var o in context.Orders.Where(o => o.Status == OrderStatus.Принят && !o.Reserved))
+            foreach (var o in context.Orders.Where(o => o.Status == OrderStatus.Принят))
                 foreach (var op in context.OrderProducts.Where(x => x.OrderId == o.Id))
                 {
                     var p = context.Products.FirstOrDefault(x => x.Id == op.ProductId);
@@ -42,7 +42,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                         materials[m] += pm.Count * op.Count;
                     }
                 }
-                    
+
             foreach (var m in materials.Keys.ToArray())
                 if (materials[m] > context.Materials.First(rec => rec.Id == m.Id).Count)
                 {
@@ -144,6 +144,19 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             }
 
             SendEmail(model.Email, "Заявка на материалы", "", model.FileName);
+
+            foreach (var m in materials)
+            {
+                context.Materials.First(x => x.Id == m.Key.Id).Count += m.Value;
+                context.Requests.Add(new Request
+                {
+                    MaterialId = m.Key.Id,
+                    Count = m.Value,
+                    ImplementDate = DateTime.Now
+                });
+            }
+
+            context.SaveChanges();
         }
 
         public void getAdminOrderList(ReportBindingModel model)
@@ -160,7 +173,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
             PdfWriter writer = PdfWriter.GetInstance(doc, fs);
             doc.Open();
             BaseFont baseFont = BaseFont.CreateFont("TIMCYR.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            
+
 
             //вставляем заголовок
             var phraseTitle = new Phrase("Заказы клиентов",
@@ -227,7 +240,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 Sum = o.Sum,
                 Reserved = o.Reserved,
                 Status = o.Status.ToString(),
-                DateCreate = SqlFunctions.DateName("dd", o.DateCreate) + " " + 
+                DateCreate = SqlFunctions.DateName("dd", o.DateCreate) + " " +
                              SqlFunctions.DateName("mm", o.DateCreate) + " " +
                              SqlFunctions.DateName("yyyy", o.DateCreate)
             }).ToList();
@@ -240,13 +253,13 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                     table.AddCell(cell);
                     cell = new PdfPCell(new Phrase(order.DateCreate, fontForCells));
                     table.AddCell(cell);
-                
+
                     cell = new PdfPCell(new Phrase(context.Products.First(p => p.Id == op.ProductId).Name, fontForCells));
                     table.AddCell(cell);
                     cell = new PdfPCell(new Phrase(op.Count.ToString(), fontForCells));
                     cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                     table.AddCell(cell);
-                
+
                     cell = new PdfPCell(new Phrase((context.Products.First(p => p.Id == op.ProductId).Price * op.Count).ToString(), fontForCells));
                     cell.HorizontalAlignment = Element.ALIGN_RIGHT;
                     table.AddCell(cell);
@@ -279,6 +292,79 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
 
             //вставляем таблицу
             doc.Add(table);
+
+
+
+            phraseTitle = new Phrase("Отчет по заявкам", new iTextSharp.text.Font(baseFont, 16, iTextSharp.text.Font.BOLD));
+            paragraph = new iTextSharp.text.Paragraph(phraseTitle)
+            {
+                Alignment = Element.ALIGN_CENTER,
+                SpacingAfter = 12
+            };
+            doc.Add(paragraph);
+            phrasePeriod = new Phrase("c " + model.DateFrom.Value.ToShortDateString() +
+            " по " + model.DateTo.Value.ToShortDateString(),
+            new iTextSharp.text.Font(baseFont, 14, iTextSharp.text.Font.BOLD));
+            paragraph = new iTextSharp.text.Paragraph(phrasePeriod)
+            {
+                Alignment = Element.ALIGN_CENTER,
+                SpacingAfter = 12
+            };
+            doc.Add(paragraph);
+
+
+            //вставляем таблицу, задаем количество столбцов, и ширину колонок
+            table = new PdfPTable(3)
+            {
+                TotalWidth = 800F
+            };
+            table.SetTotalWidth(new float[] { 400, 300, 200 });
+
+
+            //вставляем шапку
+            cell = new PdfPCell();
+            fontForCellBold = new iTextSharp.text.Font(baseFont, 10, iTextSharp.text.Font.BOLD);
+            table.AddCell(new PdfPCell(new Phrase("Материал", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Дата создания", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            table.AddCell(new PdfPCell(new Phrase("Количество", fontForCellBold))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+
+
+            //заполняем таблицу
+            var rList = context.Requests.Select(r => new RequestViewModel
+            {
+                Id = r.Id,
+                MaterialId = r.Material.Id,
+                MaterialName = r.Material.Name,
+                Count = r.Count,
+                ImplementDate = SqlFunctions.DateName("dd", r.ImplementDate) + " " +
+                             SqlFunctions.DateName("mm", r.ImplementDate) + " " +
+                             SqlFunctions.DateName("yyyy", r.ImplementDate)
+            }).ToList();
+
+            fontForCells = new iTextSharp.text.Font(baseFont, 10);
+            foreach (var request in rList)
+            {
+                cell = new PdfPCell(new Phrase(request.MaterialName, fontForCells));
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase(request.ImplementDate, fontForCells));
+                table.AddCell(cell);
+                cell = new PdfPCell(new Phrase(request.Count.ToString(), fontForCells));
+                cell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                table.AddCell(cell);
+            }
+
+            //вставляем таблицу
+            doc.Add(table);
+
             doc.Close();
 
             SendEmail(model.Email, "Оповещение по заказам", "", model.FileName);
@@ -393,7 +479,6 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 }
             }
 
-
             //вставляем итого
             cell = new PdfPCell(new Phrase("Итого:", fontForCellBold))
             {
@@ -440,7 +525,7 @@ namespace GoToWorkFactoryImplementDataBase.Implementations
                 smtpClient.EnableSsl = true;
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.Credentials = new NetworkCredential(
-                    ConfigurationManager.AppSettings["MailLogin"], 
+                    ConfigurationManager.AppSettings["MailLogin"],
                     ConfigurationManager.AppSettings["MailPassword"]
                     );
                 smtpClient.Send(m);

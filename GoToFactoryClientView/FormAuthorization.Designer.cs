@@ -49,7 +49,7 @@
             // textBoxPass
             // 
             this.textBoxPass.Location = new System.Drawing.Point(67, 45);
-            this.textBoxPass.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxPass.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPass.Multiline = true;
             this.textBoxPass.Name = "textBoxPass";
             this.textBoxPass.PasswordChar = '*';
@@ -59,7 +59,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Location = new System.Drawing.Point(193, 76);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(108, 29);
             this.buttonCancel.TabIndex = 11;
@@ -69,7 +69,7 @@
             // buttonSave
             // 
             this.buttonSave.Location = new System.Drawing.Point(13, 76);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(173, 30);
             this.buttonSave.TabIndex = 10;
@@ -80,7 +80,7 @@
             // textBoxEmail
             // 
             this.textBoxEmail.Location = new System.Drawing.Point(67, 10);
-            this.textBoxEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxEmail.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxEmail.Multiline = true;
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(234, 27);
@@ -107,9 +107,9 @@
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormAuthorization";
-            this.Text = "FormAuthorization";
+            this.Text = "Вход";
             this.ResumeLayout(false);
             this.PerformLayout();
 

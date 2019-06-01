@@ -18,5 +18,6 @@ namespace GoToWorkFactoryImplementDataBase
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductMaterial> ProductMaterials { get; set; }
         public virtual DbSet<OrderProduct> OrderProducts { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
     }
 }

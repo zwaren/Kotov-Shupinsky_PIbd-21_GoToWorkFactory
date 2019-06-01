@@ -15,5 +15,8 @@ namespace GoToWorkFactoryModel
 
 		[ForeignKey("MaterialId")]
 		public virtual List<ProductMaterial> ProductMaterials { get; set; }
-	}
+
+        [ForeignKey("MaterialId")]
+        public virtual List<Request> Requests { get; set; }
+    }
 }
