@@ -21,14 +21,16 @@ namespace GoToWorkFactoryClientView
         private readonly IClientService cService;
         private readonly IProductService pService;
         private readonly IReportService rService;
+        private readonly IBackUpService backUpService;
 
-        public FormMain(IClientMainService service, IClientService cService, IProductService pService, IReportService rService)
+        public FormMain(IClientMainService service, IClientService cService, IProductService pService, IReportService rService, IBackUpService backUpService)
         {
             InitializeComponent();
             this.service = service;
             this.cService = cService;
             this.pService = pService;
             this.rService = rService;
+            this.backUpService = backUpService;
             order = new OrderBindingModel();
             order.OrderProducts = new List<OrderProductBindingModel>();
         }
@@ -131,6 +133,11 @@ namespace GoToWorkFactoryClientView
             {
                 MessageBox.Show("Вы должны быть залогинены!\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            backUpService.BackUpClent();
         }
     }
 }

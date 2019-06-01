@@ -5,6 +5,6 @@ namespace GoToWorkFactoryServiceDAL.Interfaces
     public interface IBackUpService
     {
         void BackUpAdmin();
-        void BackUpClent(ClientBindingModel client);
+        void BackUpClent();
     }
 }

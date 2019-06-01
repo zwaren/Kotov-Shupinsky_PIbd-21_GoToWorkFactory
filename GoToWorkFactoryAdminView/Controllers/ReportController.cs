@@ -8,10 +8,12 @@ namespace GoToWorkFactoryAdminView.Controllers
     public class ReportController : Controller
     {
         private readonly IReportService _service;
+        private readonly IBackUpService _backUpService;
 
-        public ReportController(IReportService service)
+        public ReportController(IReportService service, IBackUpService backUpService)
         {
             _service = service;
+            _backUpService = backUpService;
         }
 
         // GET: Report
@@ -36,6 +38,12 @@ namespace GoToWorkFactoryAdminView.Controllers
                 DateFrom = new DateTime(2018, 1, 1),
                 DateTo = DateTime.Now
             });
+            return RedirectToAction("Index", "Order");
+        }
+
+        public ActionResult BackUpAdmin()
+        {
+            _backUpService.BackUpAdmin();
             return RedirectToAction("Index", "Order");
         }
     }

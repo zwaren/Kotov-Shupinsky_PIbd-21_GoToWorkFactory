@@ -16,11 +16,9 @@ namespace GoToWorkFactoryModel
 
         [DataMember]
         public int Count { get; set; }
-
-        [DataMember]
+        
         public virtual Order Order { get; set; }
-
-        [DataMember]
+        
         public virtual Product Product { get; set; }
 	}
 }

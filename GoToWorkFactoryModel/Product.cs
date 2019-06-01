@@ -18,12 +18,10 @@ namespace GoToWorkFactoryModel
 
         [DataMember]
         public decimal Price { get; set; }
-
-        [DataMember]
+        
         [ForeignKey("ProductId")]
 		public virtual List<OrderProduct> OrderProducts { get; set; }
-
-        [DataMember]
+        
         [ForeignKey("ProductId")]
 		public virtual List<ProductMaterial> ProductMaterials { get; set; }
 	}

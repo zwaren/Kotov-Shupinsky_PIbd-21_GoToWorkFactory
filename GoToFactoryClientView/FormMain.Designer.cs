@@ -42,6 +42,7 @@
             this.productViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelUser = new System.Windows.Forms.Label();
             this.buttonSend = new System.Windows.Forms.Button();
+            this.buttonBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.orderViewModelBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -82,7 +83,7 @@
             // buttonCommit
             // 
             this.buttonCommit.Location = new System.Drawing.Point(643, 35);
-            this.buttonCommit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCommit.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCommit.Name = "buttonCommit";
             this.buttonCommit.Size = new System.Drawing.Size(146, 51);
             this.buttonCommit.TabIndex = 2;
@@ -93,7 +94,7 @@
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(643, 91);
-            this.buttonAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(146, 43);
             this.buttonAdd.TabIndex = 3;
@@ -111,7 +112,7 @@
             this.priceDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.productViewModelBindingSource;
             this.dataGridView.Location = new System.Drawing.Point(10, 28);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 24;
             this.dataGridView.Size = new System.Drawing.Size(616, 276);
@@ -151,7 +152,7 @@
             // buttonSend
             // 
             this.buttonSend.Location = new System.Drawing.Point(643, 138);
-            this.buttonSend.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSend.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.Size = new System.Drawing.Size(146, 46);
             this.buttonSend.TabIndex = 6;
@@ -159,11 +160,22 @@
             this.buttonSend.UseVisualStyleBackColor = true;
             this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
             // 
+            // buttonBack
+            // 
+            this.buttonBack.Location = new System.Drawing.Point(645, 191);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(143, 44);
+            this.buttonBack.TabIndex = 7;
+            this.buttonBack.Text = "Сделать Бэкап";
+            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(797, 319);
+            this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonSend);
             this.Controls.Add(this.labelUser);
             this.Controls.Add(this.dataGridView);
@@ -171,7 +183,7 @@
             this.Controls.Add(this.buttonCommit);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormMain";
             this.Text = "Список товаров";
             this.Load += new System.EventHandler(this.FormMain_Load);
@@ -199,5 +211,6 @@
         private System.Windows.Forms.BindingSource productViewModelBindingSource;
         private System.Windows.Forms.Label labelUser;
         private System.Windows.Forms.Button buttonSend;
+        private System.Windows.Forms.Button buttonBack;
     }
 }
