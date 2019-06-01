@@ -49,6 +49,7 @@
     <Compile Include="BindingModels\ProductBindingModel.cs" />
     <Compile Include="BindingModels\ProductMaterialBindingModel.cs" />
     <Compile Include="BindingModels\ReportBindingModel.cs" />
+    <Compile Include="Interfaces\IBackUpService.cs" />
     <Compile Include="Interfaces\IClientMainService.cs" />
     <Compile Include="Interfaces\IClientService.cs" />
     <Compile Include="Interfaces\IMaterialService.cs" />
