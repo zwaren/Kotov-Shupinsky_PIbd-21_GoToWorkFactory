@@ -1,15 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+
 
 namespace GoToWorkFactoryModel
 {
-	public class Client
+    [DataContract]
+    public class Client
 	{
-		public int Id { get; set; }
+        [DataMember]
+        public int Id { get; set; }
 
-		[Required]
+        [DataMember]
+        [Required]
 		public string Name { get; set; }
 
-		[Required]
+        [DataMember]
+        [Required]
 		public string Email { get; set; }
 	}
 }

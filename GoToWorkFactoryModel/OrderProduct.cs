@@ -1,17 +1,26 @@
-﻿namespace GoToWorkFactoryModel
+﻿using System.Runtime.Serialization;
+
+namespace GoToWorkFactoryModel
 {
-	public class OrderProduct
+    [DataContract]
+    public class OrderProduct
     {
-		public int Id { get; set; }
+        [DataMember]
+        public int Id { get; set; }
 
-		public int OrderId { get; set; }
+        [DataMember]
+        public int OrderId { get; set; }
 
-		public int ProductId { get; set; }
+        [DataMember]
+        public int ProductId { get; set; }
 
-		public int Count { get; set; }
+        [DataMember]
+        public int Count { get; set; }
 
-		public virtual Order Order { get; set; }
+        [DataMember]
+        public virtual Order Order { get; set; }
 
-		public virtual Product Product { get; set; }
+        [DataMember]
+        public virtual Product Product { get; set; }
 	}
 }

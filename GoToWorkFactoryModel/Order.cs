@@ -1,26 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+
 
 namespace GoToWorkFactoryModel
 {
-	public class Order
+    [DataContract]
+    public class Order
     {
-		public int Id { get; set; }
+        [DataMember]
+        public int Id { get; set; }
 
-		public int ClientId { get; set; }
+        [DataMember]
+        public int ClientId { get; set; }
 
-		public decimal Sum { get; set; }
+        [DataMember]
+        public decimal Sum { get; set; }
 
-		public bool Reserved { get; set; }
+        [DataMember]
+        public bool Reserved { get; set; }
 
-		public OrderStatus Status { get; set; }
+        [DataMember]
+        public OrderStatus Status { get; set; }
 
-		public DateTime DateCreate { get; set; }
+        [DataMember]
+        public DateTime DateCreate { get; set; }
 
-		public DateTime? DateImplement { get; set; }
+        [DataMember]
+        public DateTime? DateImplement { get; set; }
 
-		public virtual Client Client { get; set; }
+        [DataMember]
+        public virtual Client Client { get; set; }
 
 		[ForeignKey("OrderId")]
 		public virtual List<OrderProduct> OrderProducts { get; set; }

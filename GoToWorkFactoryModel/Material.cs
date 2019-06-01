@@ -1,19 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+
 
 namespace GoToWorkFactoryModel
 {
-	public class Material
+    [DataContract]
+    public class Material
     {
-		public int Id { get; set; }
+        [DataMember]
+        public int Id { get; set; }
 
-		[Required]
+        [DataMember]
+        [Required]
 		public string Name { get; set; }
 
-		public int Count { get; set; }
+        [DataMember]
+        public int Count { get; set; }
 
-		[ForeignKey("MaterialId")]
+        [ForeignKey("MaterialId")]
 		public virtual List<ProductMaterial> ProductMaterials { get; set; }
 
         [ForeignKey("MaterialId")]
